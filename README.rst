@@ -8,3 +8,4 @@ Required packages
 +++++++++++++++++
 
 * python3-sqlalchemy
+* python3-keyring

@@ -7,4 +7,4 @@ The oemof code will be released in early 2016 but you can try this extension alr
 Required packages
 +++++++++++++++++
 
-* python-sqlalchemy
+* python3-sqlalchemy

@@ -1,16 +1,20 @@
 #!/usr/bin/python
 # -*- coding: utf-8
-import logging
-from shapely import geometry as geopy
-
-from oemof_pg import db
-from oemof_pg import coastdat
 
 try:
     from matplotlib import pyplot as plt
     plot_fkt = True
 except:
     plot_fkt = False
+
+import logging
+from shapely import geometry as geopy
+
+from oemof_pg import db
+from oemof_pg import coastdat
+
+
+plot_fkt = True
 
 from feedinlib import powerplants as plants
 from feedinlib import models

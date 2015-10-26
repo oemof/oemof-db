@@ -13,9 +13,6 @@ from shapely import geometry as geopy
 from oemof_pg import db
 from oemof_pg import coastdat
 
-
-plot_fkt = True
-
 from feedinlib import powerplants as plants
 from feedinlib import models
 

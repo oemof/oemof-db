@@ -166,6 +166,7 @@ def create_multi_weather(df, geo, rename_dc):
     ''
     weather_list = []
     # Create a pandas.DataFrame with the time series of the weather data set
+    # for each data set and append them to a list.
     for gid in df.gid.unique():
         gid_df = df[df.gid == gid]
         obj = create_single_weather(gid_df, gid_df.geom.iloc[0], rename_dc)

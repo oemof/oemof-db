@@ -4,7 +4,7 @@ import keyring
 from . import config as cfg
 
 
-def connection():
+def engine():
     pw = keyring.get_password(cfg.get("postGIS", "database"),
                               cfg.get("postGIS", "username"))
 
@@ -20,7 +20,7 @@ def connection():
                 "\nExiting.")
           exit(-1)
 
-    engine = create_engine(
+    return create_engine(
         "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}".format(
             user=cfg.get("postGIS", "username"),
             passwd=pw,
@@ -28,4 +28,5 @@ def connection():
             db=cfg.get("postGIS", "database"),
             port=int(cfg.get("postGIS", "port"))))
 
-    return engine.connect()
+def connection():
+    return engine().connect()

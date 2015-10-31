@@ -17,7 +17,7 @@ in a directory called ``.oemof`` in your home directory.
 To configure database access this file has to have a section ``[postGIS]``
 section containing the necessary options, like this:
 
-  .. code::
+  .. code:: INI
     :name: config.ini
 
     [postGIS]

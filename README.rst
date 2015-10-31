@@ -39,7 +39,7 @@ dependency of `oemof_pg`, like this:
 where `"database"` and `"username"` have the same values as the corresponding
 options in `config.ini`.
 
-.. _`keyring package`: <https://pypi.python.org/pypi/keyring
+.. _`keyring package`: https://pypi.python.org/pypi/keyring
 
 Required packages
 +++++++++++++++++

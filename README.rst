@@ -6,6 +6,22 @@ The oemof code will be released in early 2016 but you can try this extension
 already with the feedinlib. If you are interested to join the oemof database
 project please contact us.
 
+Installation
+++++++++++++
+
+Clone the repository to your local system.
+
+  .. code:: bash
+
+    git clone git@github.com:oemof/feedinlib.git
+    
+Then you can install it using pip3 (or pip2) with the -e flag. 
+
+  .. code:: bash
+
+    sudo pip3 install -e <path/to/the/feedinlib/root/dir>
+    
+
 Configuration
 +++++++++++++
 

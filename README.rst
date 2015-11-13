@@ -13,7 +13,7 @@ Clone the repository to your local system.
 
   .. code:: bash
 
-    git clone git@github.com:oemof/feedinlib.git
+    git@github.com:oemof/oemof_pg.git
     
 Then you can install it using pip3 (or pip2) with the -e flag. 
 

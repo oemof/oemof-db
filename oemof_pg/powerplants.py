@@ -27,10 +27,9 @@ translator = lambda x: de_en[x]
 
 
 def get_all_power_plants(conn, geometry):
-    plants = get_all_re_power_plants(conn, geometry)
-    plants = pd.concat([plants, get_all_fossil_power_plants(
-        conn, geometry)], ignore_index=True)
-    return plants
+    return (pd.concat([get_bnetza_pps(conn, geometry),
+                       get_energymap_pps(conn, geometry)],
+                      ignore_index=True))
 
 
 def get_energymap_pps(conn, geometry1, geometry2=None, tsum=True):

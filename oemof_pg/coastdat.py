@@ -1,13 +1,5 @@
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 17 11:08:15 2015
-
-This is a collection of helper functions which work on there own an can be
-used by various classes. If there are too many helper-functions, they will
-be sorted in different modules.
-
-All special import should be in try/except loops to avoid import errors.
-"""
 
 import logging
 import pandas as pd

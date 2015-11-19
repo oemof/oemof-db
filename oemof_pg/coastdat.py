@@ -13,7 +13,8 @@ from shapely.wkt import loads as wkt_loads
 
 def get_weather(conn, geometry, year):
     r"""
-    Get the weather data for the given geometry and create a weather object.
+    Get the weather data for the given geometry and create an oemof
+    weather object.
     """
     rename_dc = {
         'ASWDIFD_S': 'dhi',
@@ -51,10 +52,8 @@ def get_weather(conn, geometry, year):
 
 def sql_weather_string(conn, geometry, year, sql_part):
         '''
-        Creates an sql-string to read all datasets within a given polygon.
-        The polygon must be defined in a view named coastdat.tmpview
+        Creates an sql-string to read all datasets within a given geometry.
         '''
-
         # TODO@Günni. Replace sql-String with alchemy/GeoAlchemy
         # Create string parts for where conditions
 
@@ -91,7 +90,8 @@ def sql_weather_string(conn, geometry, year, sql_part):
 
 def fetch_raw_data(sql, connection, geometry):
     """
-    Creates an sql-string to define a temporary view with a polygon.
+    Fetch the coastdat2 from the database, adapt it to the local time zone
+    and create a time index.
     """
     tmp_dc = {}
     weather_df = pd.DataFrame(
@@ -130,7 +130,7 @@ def fetch_raw_data(sql, connection, geometry):
 
 
 def create_single_weather(df, geo, rename_dc):
-    ''
+    'Create an oemof weather object for the given geometry'
     my_weather = weather.FeedinWeather()
     data_height = {}
 
@@ -155,7 +155,7 @@ def create_single_weather(df, geo, rename_dc):
 
 
 def create_multi_weather(df, geo, rename_dc):
-    ''
+    'Create a list of oemof weather objects if the given geometry is a polygon'
     weather_list = []
     # Create a pandas.DataFrame with the time series of the weather data set
     # for each data set and append them to a list.

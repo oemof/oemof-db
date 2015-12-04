@@ -19,8 +19,8 @@ Then you can install it using pip3 with the -e flag.
 
   .. code:: bash
 
-    sudo pip3 install -e <path/to/the/feedinlib/root/dir>
-    
+    sudo pip3 install -e <path/to/the/oemof_pg/root/dir>
+
 
 Configuration
 +++++++++++++

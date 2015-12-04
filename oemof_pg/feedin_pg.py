@@ -25,7 +25,6 @@ class Feedin:
         [pv_df, wind_df, cap] = self.get_timeseries(
             conn,
             geometry=region.geom,
-            year=region.year,
             **kwargs)
 
         if kwargs.get('store', False):
@@ -40,7 +39,8 @@ class Feedin:
         for stype in feedin_df.keys():
             source_list.append(source.FixedSource(
                 uid='_'.join(['DispSrc', region.code, stype]),
-                outputs=[region.buses['_'.join(['b', region.code, 'el'])]],
+                outputs=[obj for obj in region.entities if obj.uid == (
+                    'bus', region.name, kwargs['bustype'])],
                 val=feedin_df[stype],
                 out_max={'_'.join(['b', region.code, 'el']): float(
                     cap.sum()[stype])}))

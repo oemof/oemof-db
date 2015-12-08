@@ -34,17 +34,13 @@ class Feedin:
         df = pd.concat([pv_df.sum(axis=1), wind_df.sum(axis=1)], axis=1)
         feedin_df = df.rename(columns={0: 'pv_pwr', 1: 'wind_pwr'})
 
-        source_list = []
-
         for stype in feedin_df.keys():
-            source_list.append(source.FixedSource(
-                uid='_'.join(['DispSrc', region.code, stype]),
+            source.FixedSource(
+                uid=('DispSrc', region.name, stype),
                 outputs=[obj for obj in region.entities if obj.uid == (
                     'bus', region.name, kwargs['bustype'])],
                 val=feedin_df[stype],
-                out_max={'_'.join(['b', region.code, 'el']): float(
-                    cap.sum()[stype])}))
-        return source_list
+                out_max=[float(cap.sum()[stype])])
 
     def get_timeseries(self, conn, **kwargs):
         ''

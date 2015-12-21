@@ -13,7 +13,7 @@ Clone the repository to your local system.
 
   .. code:: bash
 
-    git@github.com:oemof/oemof_pg.git
+    git clone git@github.com:oemof/oemof_pg.git
 
 Then you can install it using pip3 with the -e flag.
 

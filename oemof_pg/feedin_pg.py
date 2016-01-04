@@ -36,7 +36,7 @@ class Feedin:
 
         for stype in feedin_df.keys():
             source.FixedSource(
-                uid=('DispSrc', region.name, stype),
+                uid=('FixedSrc', region.name, stype),
                 outputs=[obj for obj in region.entities if obj.uid == (
                     'bus', region.name, kwargs['bustype'])],
                 val=feedin_df[stype],

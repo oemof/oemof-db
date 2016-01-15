@@ -232,7 +232,9 @@ def get_polygon_from_postgis(conn, schema, table, gcol='geom', union=False):
 
 def tz_from_geom(connection, geometry):
     r"""Finding the timezone of a given point or polygon geometry, assuming
-    that the polygon is not crossing a border of a timezone.
+    that the polygon is not crossing a border of a timezone. For a given point
+    or polygon geometry not located within the timezone dataset (e.g. sea) the
+    nearest timezone based on the bounding boxes of the geometries is returned.
 
     Parameters
     ----------
@@ -245,6 +247,10 @@ def tz_from_geom(connection, geometry):
     -------
     string
         Timezone using the naming of the IANA time zone database
+
+    References
+    ----------
+    http://postgis.net/docs/manual-2.2/geometry_distance_box.html
     """
 
     # TODO@Günni
@@ -256,6 +262,12 @@ def tz_from_geom(connection, geometry):
         SELECT tzid FROM oemof_test.tz_world
         WHERE st_contains(geom, ST_PointFromText('{wkt}', 4326));
         """.format(wkt=coords.wkt)
+
+    if not connection.execute(sql).fetchone():
+        sql = """
+            SELECT tzid FROM oemof_test.tz_world
+            ORDER BY ST_PointFromText('{wkt}', 4326) <#> geom LIMIT 1;
+            """.format(wkt=coords.wkt)
     return connection.execute(sql).fetchone()[0]
 
 

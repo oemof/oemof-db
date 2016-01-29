@@ -3,7 +3,7 @@
 from setuptools import find_packages, setup
 
 setup(name='oemof.db',
-      version='0.0.1dev',
+      version='0.0.2',
       description='The oemof database extension',
       namespace_package = ['oemof'],
       packages=find_packages(),

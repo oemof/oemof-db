@@ -13,13 +13,13 @@ Clone the repository to your local system.
 
   .. code:: bash
 
-    git clone git@github.com:oemof/oemof_pg.git
+    git clone git@github.com:oemof/oemof.db.git
 
 Then you can install it using pip3 with the -e flag.
 
   .. code:: bash
 
-    sudo pip3 install -e <path/to/the/oemof_pg/root/dir>
+    sudo pip3 install -e <path/to/the/oemof.db/root/dir>
 
 
 Configuration
@@ -27,7 +27,7 @@ Configuration
 
 As the purpose of this package is to facilitate usage of the ``oemof``
 database, it needs to know how to connect to this database. Being part of
-``oemof``, ``oemof_pg`` looks for this configuration in the file ``config.ini``
+``oemof``, ``oemof.db`` looks for this configuration in the file ``config.ini``
 in a directory called ``.oemof`` in your home directory.
 
 To configure database access this file has to have a section ``[postGIS]``
@@ -45,7 +45,7 @@ section containing the necessary options, like this:
 
 The password is optional. If you don't want to store the password in the
 ``config.ini``, you may store it using the `keyring package`_, which is a
-dependency of ``oemof_pg``, like this:
+dependency of ``oemof.db``, like this:
 
   .. code:: python
 

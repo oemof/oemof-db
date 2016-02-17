@@ -13,13 +13,13 @@ Clone the repository to your local system.
 
   .. code:: bash
 
-    git clone git@github.com:oemof/oemof_pg.git
+    git clone git@github.com:oemof/oemof.db.git
 
 Then you can install it using pip3 with the -e flag.
 
   .. code:: bash
 
-    sudo pip3 install -e <path/to/the/oemof_pg/root/dir>
+    sudo pip3 install -e <path/to/oemof.db>
 
 
 Configuration

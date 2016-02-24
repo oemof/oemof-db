@@ -4,12 +4,12 @@ import keyring
 from . import config as cfg
 
 
-def engine():
-    pw = keyring.get_password(cfg.get("postGIS", "database"),
-                              cfg.get("postGIS", "username"))
+def engine(db_section="postGIS"):
+    pw = keyring.get_password(cfg.get(db_section, "database"),
+                              cfg.get(db_section, "username"))
 
     if pw is None:
-      try: pw = cfg.get("postGIS", "pw")
+      try: pw = cfg.get(db_section, "pw")
       except option:
           print("Unable to find the database password in " +
                 "the oemof config or keyring." +
@@ -22,11 +22,11 @@ def engine():
 
     return create_engine(
         "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}".format(
-            user=cfg.get("postGIS", "username"),
+            user=cfg.get(db_section, "username"),
             passwd=pw,
-            host=cfg.get("postGIS", "host"),
-            db=cfg.get("postGIS", "database"),
-            port=int(cfg.get("postGIS", "port"))))
+            host=cfg.get(db_section, "host"),
+            db=cfg.get(db_section, "database"),
+            port=int(cfg.get(db_section, "port"))))
 
-def connection():
-    return engine().connect()
+def connection(db_section="postGIS"):
+    return engine(db_section=db_section).connect()

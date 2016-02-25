@@ -5,6 +5,14 @@ from . import config as cfg
 
 
 def engine(db_section="postGIS"):
+    """Creates engine for database access
+
+    If keyword argument 'db_section' is used it requires an existing config.ini
+    file at the right location.
+
+    Keyword arguments:
+    db_section -- name of section in config.ini (default 'postGIS')
+    """
     pw = keyring.get_password(cfg.get(db_section, "database"),
                               cfg.get(db_section, "username"))
 

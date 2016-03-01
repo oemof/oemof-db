@@ -19,7 +19,13 @@ def engine(db_section="postGIS"):
     Returns
     -------
     engine : str
-        Engine for sqlalchemy    
+        Engine for sqlalchemy
+        
+    Notes
+    -----
+    
+    A description of how the config.ini is given within itself, see
+    :download: `config.py`
     """
     
     pw = keyring.get_password(cfg.get(db_section, "database"),

@@ -5,14 +5,23 @@ from . import config as cfg
 
 
 def engine(db_section="postGIS"):
-    """Creates engine for database access
+    """Creates engine object for database access
 
-    If keyword argument 'db_section' is used it requires an existing config.ini
+    If keyword argument `db_section` is used it requires an existing config.ini
     file at the right location.
 
-    Keyword arguments:
-    db_section -- name of section in config.ini (default 'postGIS')
+    Parameters
+    ----------
+    db_section : str, optional
+        Section (in config.ini) of targeted database containing connection details that are
+        used to set up connection
+
+    Returns
+    -------
+    engine : str
+        Engine for sqlalchemy    
     """
+    
     pw = keyring.get_password(cfg.get(db_section, "database"),
                               cfg.get(db_section, "username"))
 
@@ -37,4 +46,11 @@ def engine(db_section="postGIS"):
             port=int(cfg.get(db_section, "port"))))
 
 def connection(db_section="postGIS"):
+    """Database connection method of sqlalchemy engine object
+
+    This function purely calls the `connect()` method of the engine object
+    returned by :py:func:`engine`.
+    
+    For description of parameters see :py:func:`engine`.
+    """
     return engine(db_section=db_section).connect()

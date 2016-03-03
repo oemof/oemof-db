@@ -13,35 +13,36 @@ def engine(db_section="postGIS"):
     Parameters
     ----------
     db_section : str, optional
-        Section (in config.ini) of targeted database containing connection details that are
-        used to set up connection
+        Section (in config.ini) of targeted database containing connection
+        details that are used to set up connection
 
     Returns
     -------
     engine : str
         Engine for sqlalchemy
-        
+
     Notes
     -----
-    
+
     A description of how the config.ini is given within itself, see
     :download: `config.py`
     """
-    
+
     pw = keyring.get_password(cfg.get(db_section, "database"),
                               cfg.get(db_section, "username"))
 
     if pw is None:
-      try: pw = cfg.get(db_section, "pw")
-      except option:
-          print("Unable to find the database password in " +
-                "the oemof config or keyring." +
-                "\nExiting.")
-          exit(-1)
-      except section:
-          print("Unable to find the 'postGIS' section in oemof's config." +
-                "\nExiting.")
-          exit(-1)
+        try:
+            pw = cfg.get(db_section, "pw")
+        except option:
+            print("Unable to find the database password in " +
+                  "the oemof config or keyring." +
+                  "\nExiting.")
+            exit(-1)
+        except section:
+            print("Unable to find the 'postGIS' section in oemof's config." +
+                  "\nExiting.")
+            exit(-1)
 
     return create_engine(
         "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}".format(
@@ -51,12 +52,13 @@ def engine(db_section="postGIS"):
             db=cfg.get(db_section, "database"),
             port=int(cfg.get(db_section, "port"))))
 
+
 def connection(db_section="postGIS"):
     """Database connection method of sqlalchemy engine object
 
     This function purely calls the `connect()` method of the engine object
     returned by :py:func:`engine`.
-    
+
     For description of parameters see :py:func:`engine`.
     """
     return engine(db_section=db_section).connect()

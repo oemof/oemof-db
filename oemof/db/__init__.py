@@ -24,8 +24,8 @@ def engine(db_section="postGIS"):
     Notes
     -----
 
-    A description of how the config.ini is given within itself, see
-    :ref:`configuration <readme#configuration>`.
+    For documentation on config.ini see the README section on
+    :ref:`configuring <readme#configuration>` :mod:`oemof.db`.
     """
 
     pw = keyring.get_password(cfg.get(db_section, "database"),

@@ -32,7 +32,7 @@ database, it needs to know how to connect to this database. Being part of
 ``oemof``, ``oemof.db`` looks for this configuration in the file ``config.ini``
 in a directory called ``.oemof`` in your home directory.
 
-To configure database access this file has to have a section ``[postGIS]``
+To configure database access this file has to have at least one dedicated
 section containing the necessary options, like this:
 
   .. code:: INI
@@ -44,6 +44,10 @@ section containing the necessary options, like this:
     host     = host to connect to
     port     = port to connect to
     pw       = password used to connect with the given username (OPTIONAL)
+
+The section is assumed to be named ``postGIS`` by default, but you can name it
+differently and have multiple sections for different databases if the need
+arises.
 
 The password is optional. If you don't want to store the password in the
 ``config.ini``, you may store it using the `keyring package`_, which is a

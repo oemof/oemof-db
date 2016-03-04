@@ -1,0 +1,15 @@
+v0.0.3 (TBA)
++++++++++++++++++++++++++
+
+New features
+############
+
+ * It's now possible to have multiple sections for different databases in
+   ``config.ini`` (`PR #7 <https://github.com/oemof/oemof.db/pull/7>`_)
+
+Contributors
+############
+
+ * Uwe Krien
+ * Stephan Günther
+

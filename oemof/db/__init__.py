@@ -18,7 +18,7 @@ def engine(db_section="postGIS"):
 
     Returns
     -------
-    engine : str
+    engine : :class:`sqlalchemy.engine.Engine`
         Engine for sqlalchemy
 
     Notes

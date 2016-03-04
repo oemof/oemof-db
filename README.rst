@@ -22,6 +22,8 @@ Then you can install it using pip3 with the -e flag.
     sudo pip3 install -e <path/to/the/oemof.db/root/dir>
 
 
+.. _readme#configuration:
+
 Configuration
 +++++++++++++
 

@@ -1,0 +1,14 @@
+v0.0.2 (January 29, 2016)
++++++++++++++++++++++++++
+
+Other changes
+#############
+
+  * Package is now called ``oemof.db``
+
+Contributors
+############
+
+ * Uwe Krien
+ * Stephan Günther
+

@@ -21,7 +21,11 @@ de_en = {
     'Windkraft': 'wind_power',
     'Biomasse': 'biomass',
     'Wasserkraft': 'hydro_power',
-    'Gas': 'methan'}
+    'Gas': 'methan',
+    'Mineralölprodukte': 'mineral_oil',
+    'Abfall': 'waste',
+    'Sonstige Energieträger\n(nicht erneuerbar) ': 'waste',
+    'Pumpspeicher': 'pumped_storage'}
 
 translator = lambda x: de_en[x]
 

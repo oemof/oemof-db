@@ -1,5 +1,5 @@
-Welcome to oemof's feedinlib documentation!
-===========================================
+Welcome to oemof's database related documentation!
+==================================================
 
 Contents:
 

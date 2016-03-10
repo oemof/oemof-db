@@ -7,6 +7,13 @@ New features
  * It's now possible to have multiple sections for different databases in
    ``config.ini`` (`PR #7 <https://github.com/oemof/oemof.db/pull/7>`_)
 
+Documentation
+#############
+
+  * The documentation was erroneously talking about ``feedinlib`` in places
+    where it should have said ``oemof.db``.
+    (`issue #3 <https://github.com/oemof/oemof.db/issues/3>`_)
+
 Contributors
 ############
 

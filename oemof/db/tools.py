@@ -288,3 +288,39 @@ def get_windzone(conn, geometry):
     else:
         zone = 0
     return zone
+
+
+def create_empty_table_serial_primary(conn, schema, table, columns=None, id_col='id'):
+    r"""New database table with primary key type serial and empty columns
+
+
+    Parameters
+    ----------
+    conn : sqlalchemy connection object
+        A valid connection to a database
+    schema : str
+        The database schema
+    table : str
+        The database table
+    columns : list, optional
+        Columns that are to be created
+    id_col : str, optional
+        Name of index column of database table
+
+    Notes
+    -------
+    Currently all created table columns will be of type `double precision`. Feel free to enhance this function by
+    by generalizing this aspect.
+    """
+
+    sql_str = """CREATE TABLE {schema}.{table} ({id_col} SERIAL PRIMARY KEY NOT NULL)
+    """.format(schema=schema, table=table, id_col=id_col)
+
+    conn.execute(sql_str)
+
+    # define more columns
+    if columns is not None:
+        for col in columns:
+            col_str = """alter table {schema}.{table} add column {col} double precision;
+                """.format(schema=schema, table=table, col=col)
+            conn.execute(col_str)

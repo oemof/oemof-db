@@ -4,6 +4,9 @@ v0.0.4 (TBA)
 New features
 ############
 
+ * Create an empty database table with primary key type serial in `tools.py`
+ * Access grant to users/ group of users, see `grant_db_access` in `tools.py`
+
 
 Documentation
 #############
@@ -24,3 +27,4 @@ Other changes
 Contributors
 ############
 
+ * Guido Pleßmann

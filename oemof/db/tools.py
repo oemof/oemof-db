@@ -290,7 +290,8 @@ def get_windzone(conn, geometry):
     return zone
 
 
-def create_empty_table_serial_primary(conn, schema, table, columns=None, id_col='id'):
+def create_empty_table_serial_primary(conn, schema, table, columns=None,
+                                      id_col='id'):
     r"""New database table with primary key type serial and empty columns
 
 
@@ -309,19 +310,22 @@ def create_empty_table_serial_primary(conn, schema, table, columns=None, id_col=
 
     Notes
     -------
-    Currently all created table columns will be of type `double precision`. Feel free to enhance this function by
+    Currently all created table columns will be of type `double precision`.
+    Feel free to enhance this function by
     by generalizing this aspect.
     """
 
-    sql_str = """CREATE TABLE {schema}.{table} ({id_col} SERIAL PRIMARY KEY NOT NULL)
-    """.format(schema=schema, table=table, id_col=id_col)
+    sql_str = """CREATE TABLE {schema}.{table} ({id_col} SERIAL PRIMARY KEY
+        NOT NULL)
+        """.format(schema=schema, table=table, id_col=id_col)
 
     conn.execute(sql_str)
 
     # define more columns
     if columns is not None:
         for col in columns:
-            col_str = """alter table {schema}.{table} add column {col} double precision;
+            col_str = """alter table {schema}.{table} add column {col}
+                double precision;
                 """.format(schema=schema, table=table, col=col)
             conn.execute(col_str)
 
@@ -343,6 +347,7 @@ def grant_db_access(conn, schema, table, role):
 
     """
     grant_str = """GRANT ALL ON TABLE {schema}.{table}
-    TO {role} WITH GRANT OPTION;""".format(schema=schema, table=table, role=role)
+    TO {role} WITH GRANT OPTION;""".format(schema=schema, table=table,
+                                           role=role)
 
     conn.execute(grant_str)

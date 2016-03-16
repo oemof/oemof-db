@@ -1,3 +1,11 @@
+/.idea/codeStyleSettings.xml
+/.idea/.name
+/.idea/encodings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/oemof.db.iml
+/.idea/vcs.xml
+/.idea/workspace.xml
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

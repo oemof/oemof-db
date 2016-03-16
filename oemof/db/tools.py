@@ -369,4 +369,26 @@ def add_primary_key(conn, schema, table, pk_col):
         schema=schema, table=table, col=pk_col)
 
     conn.execute(sql_str)
+
+
+def change_owner_to(conn, schema, table, role):
+    r"""Changes table's ownership to role
+
+    Parameters
+    ----------
+    conn : sqlalchemy connection object
+        A valid connection to a database
+    schema : str
+        The database schema
+    table : str
+        The database table
+    role : str
+        database role that access is granted to
+
+    """
+    sql_str = """ALTER TABLE {schema}.{table}
+        OWNER TO {role};""".format(schema=schema,
+                                   table=table,
+                                   role=role)
+
     conn.execute(sql_str)

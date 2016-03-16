@@ -294,7 +294,6 @@ def create_empty_table_serial_primary(conn, schema, table, columns=None,
                                       id_col='id'):
     r"""New database table with primary key type serial and empty columns
 
-
     Parameters
     ----------
     conn : sqlalchemy connection object
@@ -329,10 +328,8 @@ def create_empty_table_serial_primary(conn, schema, table, columns=None,
                 """.format(schema=schema, table=table, col=col)
             conn.execute(col_str)
 
-
 def grant_db_access(conn, schema, table, role):
     r"""Gives access to database users/ groups
-
 
     Parameters
     ----------
@@ -350,4 +347,5 @@ def grant_db_access(conn, schema, table, role):
     TO {role} WITH GRANT OPTION;""".format(schema=schema, table=table,
                                            role=role)
 
+    conn.execute(grant_str)
     conn.execute(grant_str)

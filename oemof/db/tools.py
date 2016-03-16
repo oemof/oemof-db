@@ -348,7 +348,7 @@ def grant_db_access(conn, schema, table, role):
                                            role=role)
 
     conn.execute(grant_str)
-    conn.execute(grant_str)
+
 
 def add_primary_key(conn, schema, table, pk_col):
     r"""Adds primary key to database table
@@ -368,4 +368,5 @@ def add_primary_key(conn, schema, table, pk_col):
     sql_str = """alter table {schema}.{table} add primary key ({col})""".format(
         schema=schema, table=table, col=pk_col)
 
+    conn.execute(sql_str)
     conn.execute(sql_str)

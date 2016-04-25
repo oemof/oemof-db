@@ -18,7 +18,7 @@ class Feedin:
         ''
         pass
 
-    def create_fixed_source(self, conn, **kwargs):
+    def aggregate_cap_val(self, conn, **kwargs):
         ''
         region = kwargs['region']
         [pv_df, wind_df, cap] = self.get_timeseries(

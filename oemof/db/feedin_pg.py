@@ -32,6 +32,7 @@ class Feedin:
         # Summerize the results to one column for pv and one for wind
         df = pd.concat([pv_df.sum(axis=1), wind_df.sum(axis=1)], axis=1)
         feedin_df = df.rename(columns={0: 'pv_pwr', 1: 'wind_pwr'})
+        cap = cap.sum()
 
         return feedin_df, cap
 

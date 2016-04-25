@@ -9,7 +9,6 @@ from . import coastdat
 from . import powerplants as pg_pp
 from . import tools
 from feedinlib import powerplants as pp
-from oemof.core.network.entities.components import sources as source
 
 
 class Feedin:
@@ -34,13 +33,7 @@ class Feedin:
         df = pd.concat([pv_df.sum(axis=1), wind_df.sum(axis=1)], axis=1)
         feedin_df = df.rename(columns={0: 'pv_pwr', 1: 'wind_pwr'})
 
-        for stype in feedin_df.keys():
-            source.FixedSource(
-                uid=('FixedSrc', region.name, stype),
-                outputs=[obj for obj in region.entities if obj.uid == (
-                    'bus', region.name, kwargs['bustype'])],
-                val=feedin_df[stype],
-                out_max=[float(cap.sum()[stype])])
+        return feedin_df, cap
 
     def get_timeseries(self, conn, **kwargs):
         ''

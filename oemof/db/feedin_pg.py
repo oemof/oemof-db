@@ -19,7 +19,27 @@ class Feedin:
         pass
 
     def aggregate_cap_val(self, conn, **kwargs):
-        ''
+        '''
+        Returns the normalised feedin profile and installed capacity for
+        a given region.
+
+        Parameters
+        ----------
+        region : Region instance
+        region.geom : shapely.geometry object
+            Geo-spatial data with information for location/region-shape. The
+            geometry can be a polygon/multi-polygon or a point.
+
+        Returns
+        -------
+        feedin_df : pandas dataframe
+            Dataframe containing the normalised feedin profile of the given
+            region. Index of the dataframe is the hour of the year; columns
+            are 'pv_pwr' and 'wind_pwr'.
+        cap : pandas series
+            Series containing the installed capacity (in W) of PV and wind
+            turbines of the given region.
+        '''
         region = kwargs['region']
         [pv_df, wind_df, cap] = self.get_timeseries(
             conn,

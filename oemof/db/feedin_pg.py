@@ -50,9 +50,10 @@ class Feedin:
             self.store_full_df(pv_df, wind_df, **kwargs)
 
         # Summerize the results to one column for pv and one for wind
-        df = pd.concat([pv_df.sum(axis=1), wind_df.sum(axis=1)], axis=1)
-        feedin_df = df.rename(columns={0: 'pv_pwr', 1: 'wind_pwr'})
         cap = cap.sum()
+        df = pd.concat([pv_df.sum(axis=1) / cap['pv_pwr'],
+            wind_df.sum(axis=1) / cap['wind_pwr']], axis=1)
+        feedin_df = df.rename(columns={0: 'pv_pwr', 1: 'wind_pwr'})
 
         return feedin_df, cap
 

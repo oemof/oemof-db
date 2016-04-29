@@ -9,4 +9,5 @@ setup(name='oemof.db',
       packages=find_packages(),
       package_dir={'oemof': 'oemof'},
       install_requires=['sqlalchemy >= 1.0',
-                        'keyring >= 4.0'])
+                        'keyring >= 4.0',
+                        'shapely'])

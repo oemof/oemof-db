@@ -10,8 +10,8 @@ except:
 import logging
 from shapely import geometry as geopy
 
-from oemof_pg import db
-from oemof_pg import coastdat
+from oemof import db
+from oemof.db import coastdat
 
 from feedinlib import powerplants as plants
 from feedinlib import models

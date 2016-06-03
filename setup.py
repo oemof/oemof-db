@@ -10,4 +10,5 @@ setup(name='oemof.db',
       package_dir={'oemof': 'oemof'},
       install_requires=['sqlalchemy >= 1.0',
                         'keyring >= 4.0',
-                        'shapely'])
+                        'shapely',
+                        'psycopg2'])

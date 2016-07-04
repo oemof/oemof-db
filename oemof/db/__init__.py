@@ -3,23 +3,24 @@ from sqlalchemy import create_engine
 import keyring
 from . import config as cfg
 
+def url(section="postGIS"):
+    """ Retrieve the URL used to connect to the database.
 
-def engine(section="postGIS"):
-    """Creates engine object for database access
-
-    If keyword argument `section` is used it requires an existing config.ini
-    file at the right location.
+    Use this if you have your own means of accessing the database and do not
+    want to use :func:`engine` or :func:`connection`.
 
     Parameters
     ----------
     section : str, optional
-        Section (in config.ini) of targeted database containing connection
-        details that are used to set up connection
+        The `config.ini` section corresponding to the targeted database.
+        It should contain all the details that needed to set up a connection.
 
     Returns
     -------
-    engine : :class:`sqlalchemy.engine.Engine`
-        Engine for sqlalchemy
+    database URL : str
+        The URL with which one can connect to the database. Be careful as this
+        will probably contain sensitive data like the username/password
+        combination.
 
     Notes
     -----
@@ -44,13 +45,38 @@ def engine(section="postGIS"):
                   "\nExiting.")
             exit(-1)
 
-    return create_engine(
-        "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}".format(
+    return "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}".format(
             user=cfg.get(section, "username"),
             passwd=pw,
             host=cfg.get(section, "host"),
             db=cfg.get(section, "database"),
-            port=int(cfg.get(section, "port"))))
+            port=int(cfg.get(section, "port")))
+
+
+def engine(section="postGIS"):
+    """Creates engine object for database access
+
+    If keyword argument `section` is used it requires an existing config.ini
+    file at the right location.
+
+    Parameters
+    ----------
+    section : str, optional
+        Section (in config.ini) of targeted database containing connection
+        details that are used to set up connection
+
+    Returns
+    -------
+    engine : :class:`sqlalchemy.engine.Engine`
+        Engine for sqlalchemy
+
+    Notes
+    -----
+
+    For documentation on config.ini see the README section on
+    :ref:`configuring <readme#configuration>` :mod:`oemof.db`.
+    """
+    return create_engine(url(section))
 
 
 def connection(section="postGIS"):

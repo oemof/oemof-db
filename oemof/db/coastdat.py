@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 from pytz import timezone
 from datetime import datetime
-from feedinlib import weather
+import feedinlib.weather as weather
 from . import tools
 from shapely.wkt import loads as wkt_loads
 
@@ -50,42 +50,42 @@ def get_weather(conn, geometry, year):
     return obj
 
 
-def sql_weather_string(conn, geometry, year, sql_part):
-        '''
-        Creates an sql-string to read all datasets within a given geometry.
-        '''
-        # TODO@Günni. Replace sql-String with alchemy/GeoAlchemy
-        # Create string parts for where conditions
+def sql_weather_string(year, sql_part):
+    """
+    Creates an sql-string to read all datasets within a given geometry.
+    """
+    # TODO@Günni. Replace sql-String with alchemy/GeoAlchemy
+    # Create string parts for where conditions
 
-        return '''
-        SELECT tsptyti.*, y.leap
-        FROM coastdat.year as y
+    return '''
+    SELECT tsptyti.*, y.leap
+    FROM coastdat.year as y
+    INNER JOIN (
+        SELECT tsptyd.*, sc.time_id
+        FROM coastdat.scheduled as sc
         INNER JOIN (
-            SELECT tsptyd.*, sc.time_id
-            FROM coastdat.scheduled as sc
+            SELECT tspty.*, dt.name, dt.height
+            FROM coastdat.datatype as dt
             INNER JOIN (
-                SELECT tspty.*, dt.name, dt.height
-                FROM coastdat.datatype as dt
+                SELECT tsp.*, typ.type_id
+                FROM coastdat.typified as typ
                 INNER JOIN (
-                    SELECT tsp.*, typ.type_id
-                    FROM coastdat.typified as typ
+                    SELECT spl.*, t.tsarray, t.id
+                    FROM coastdat.timeseries as t
                     INNER JOIN (
-                        SELECT spl.*, t.tsarray, t.id
-                        FROM coastdat.timeseries as t
-                        INNER JOIN (
-                            SELECT sps.*, l.data_id
-                            FROM (
-                                {sql_part}
-                                ) as sps
-                            INNER JOIN coastdat.located as l
-                            ON (sps.gid = l.spatial_id)) as spl
-                        ON (spl.data_id = t.id)) as tsp
-                    ON (tsp.id = typ.data_id)) as tspty
-                ON (tspty.type_id = dt.id)) as tsptyd
-            ON (tsptyd.id = sc.data_id))as tsptyti
-        ON (tsptyti.time_id = y.year)
-        where y.year = '{year}'
-        ;'''.format(year=year, sql_part=sql_part)
+                        SELECT sps.*, l.data_id
+                        FROM (
+                            {sql_part}
+                            ) as sps
+                        INNER JOIN coastdat.located as l
+                        ON (sps.gid = l.spatial_id)) as spl
+                    ON (spl.data_id = t.id)) as tsp
+                ON (tsp.id = typ.data_id)) as tspty
+            ON (tspty.type_id = dt.id)) as tsptyd
+        ON (tsptyd.id = sc.data_id))as tsptyti
+    ON (tsptyti.time_id = y.year)
+    where y.year = '{year}'
+    ;'''.format(year=year, sql_part=sql_part)
 
 
 def fetch_raw_data(sql, connection, geometry):
@@ -133,13 +133,14 @@ def create_single_weather(df, geo, rename_dc):
     'Create an oemof weather object for the given geometry'
     my_weather = weather.FeedinWeather()
     data_height = {}
-
+    name = None
     # Create a pandas.DataFrame with the time series of the weather data set
     weather_df = pd.DataFrame(index=df.time_series.iloc[0].index)
     for row in df.iterrows():
         key = rename_dc[row[1].type]
         weather_df[key] = row[1].time_series
         data_height[key] = row[1].height if not np.isnan(row[1].height) else 0
+        name = row[1].gid
     my_weather.data = weather_df
     my_weather.timezone = weather_df.index.tz
     if geo.geom_type == 'Point':
@@ -150,7 +151,7 @@ def create_single_weather(df, geo, rename_dc):
         my_weather.latitude = geo.centroid.y
     my_weather.geometry = geo
     my_weather.data_height = data_height
-    my_weather.name = row[1].gid
+    my_weather.name = name
     return my_weather
 
 

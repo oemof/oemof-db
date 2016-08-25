@@ -28,25 +28,26 @@ def get_weather(conn, geometry, year):
         # Create MultiWeather
         # If polygon covers only one data set switch to SingleWeather
         sql_part = """
-            SELECT sp.gid, ST_AsText(sp.geom)
-            FROM coastdat.cosmoclmgrid as sp
+            SELECT sp.gid, ST_AsText(point.geom), ST_AsText(sp.geom)
+            FROM coastdat.cosmoclmgrid AS sp
+            JOIN coastdat.spatial AS point ON (sp.gid=point.gid)
             WHERE st_intersects(ST_GeomFromText('{wkt}',4326), sp.geom)
             """.format(wkt=geometry.wkt)
-        df = fetch_raw_data(sql_weather_string(conn, geometry, year, sql_part),
-                            conn, geometry)
-        obj = create_multi_weather(df, geometry, rename_dc)
+        df = fetch_raw_data(sql_weather_string(year, sql_part), conn, geometry)
+        obj = create_multi_weather(df, rename_dc)
     elif geometry.geom_type == 'Point':
         # Create SingleWeather
         sql_part = """
-            SELECT sp.gid, ST_AsText(sp.geom)
-            FROM coastdat.cosmoclmgrid sp
+            SELECT sp.gid, ST_AsText(point.geom), ST_AsText(sp.geom)
+            FROM coastdat.cosmoclmgrid AS sp
+            JOIN coastdat.spatial AS point ON (sp.gid=point.gid)
             WHERE st_contains(sp.geom, ST_GeomFromText('{wkt}',4326))
             """.format(wkt=geometry.wkt)
-        df = fetch_raw_data(sql_weather_string(conn, geometry, year, sql_part),
-                            conn, geometry)
-        obj = create_single_weather(df, geometry, rename_dc)
+        df = fetch_raw_data(sql_weather_string(year, sql_part), conn, geometry)
+        obj = create_single_weather(df, rename_dc)
     else:
         logging.error('Unknown geometry type: {0}'.format(geometry.geom_type))
+        obj = None
     return obj
 
 
@@ -96,15 +97,16 @@ def fetch_raw_data(sql, connection, geometry):
     tmp_dc = {}
     weather_df = pd.DataFrame(
         connection.execute(sql).fetchall(), columns=[
-            'gid', 'geom', 'data_id', 'time_series', 'dat_id', 'type_id',
-            'type', 'height', 'year', 'leap_year']).drop('dat_id', 1)
+            'gid', 'geom_point', 'geom_polygon', 'data_id', 'time_series',
+            'dat_id', 'type_id', 'type', 'height', 'year', 'leap_year']).drop(
+        'dat_id', 1)
 
     # Get the timezone of the geometry
     tz = tools.tz_from_geom(connection, geometry)
 
     for ix in weather_df.index:
         # Convert the point of the weather location to a shapely object
-        weather_df.loc[ix, 'geom'] = wkt_loads(weather_df['geom'][ix])
+        weather_df.loc[ix, 'geom_point'] = wkt_loads(weather_df['geom_point'][ix])
 
         # Roll the dataset forward according to the timezone, because the
         # dataset is based on utc (Berlin +1, Kiev +2, London +0)
@@ -129,8 +131,8 @@ def fetch_raw_data(sql, connection, geometry):
     return weather_df
 
 
-def create_single_weather(df, geo, rename_dc):
-    'Create an oemof weather object for the given geometry'
+def create_single_weather(df, rename_dc):
+    """Create an oemof weather object for the given geometry"""
     my_weather = weather.FeedinWeather()
     data_height = {}
     name = None
@@ -143,25 +145,22 @@ def create_single_weather(df, geo, rename_dc):
         name = row[1].gid
     my_weather.data = weather_df
     my_weather.timezone = weather_df.index.tz
-    if geo.geom_type == 'Point':
-        my_weather.longitude = geo.x
-        my_weather.latitude = geo.y
-    else:
-        my_weather.longitude = geo.centroid.x
-        my_weather.latitude = geo.centroid.y
-    my_weather.geometry = geo
+    my_weather.longitude = df.geom_point.iloc[0].x
+    my_weather.latitude = df.geom_point.iloc[0].y
+    my_weather.geometry = df.geom_point.iloc[0]
     my_weather.data_height = data_height
     my_weather.name = name
     return my_weather
 
 
-def create_multi_weather(df, geo, rename_dc):
-    'Create a list of oemof weather objects if the given geometry is a polygon'
+def create_multi_weather(df, rename_dc):
+    """Create a list of oemof weather objects if the given geometry is a polygon
+    """
     weather_list = []
     # Create a pandas.DataFrame with the time series of the weather data set
     # for each data set and append them to a list.
     for gid in df.gid.unique():
         gid_df = df[df.gid == gid]
-        obj = create_single_weather(gid_df, gid_df.geom.iloc[0], rename_dc)
+        obj = create_single_weather(gid_df, rename_dc)
         weather_list.append(obj)
     return weather_list

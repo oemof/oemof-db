@@ -10,6 +10,7 @@ All special import should be in try/except loops to avoid import errors.
 """
 
 import logging
+import pandas as pd
 
 
 # get_polygon_from_nuts
@@ -392,3 +393,13 @@ def change_owner_to(conn, schema, table, role):
                                    role=role)
 
     conn.execute(sql_str)
+
+
+def db_table2pandas(conn, schema, table, columns=None):
+    if columns is None:
+        columns = '*'
+    sql = "SELECT {0} FROM {1}.{2};".format(columns, schema, table)
+    logging.debug("SQL query: {0}".format(sql))
+    results = (conn.execute(sql))
+    columns = results.keys()
+    return pd.DataFrame(results.fetchall(), columns=columns)

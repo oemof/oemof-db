@@ -19,6 +19,8 @@ Testing
 Bug fixes
 #########
 
+ * Add missing keyrings.alt dependency
+
 
 Other changes
 #############

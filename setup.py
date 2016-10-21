@@ -11,4 +11,5 @@ setup(name='oemof.db',
       install_requires=['sqlalchemy >= 1.0',
                         'keyring >= 4.0',
                         'shapely',
-                        'psycopg2'])
+                        'psycopg2',
+                        'keyrings.alt'])

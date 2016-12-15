@@ -3,7 +3,7 @@
 from setuptools import find_packages, setup
 
 setup(name='oemof.db',
-      version='0.0.2',
+      version='0.0.4',
       description='The oemof database extension',
       namespace_package = ['oemof'],
       packages=find_packages(),
@@ -11,4 +11,5 @@ setup(name='oemof.db',
       install_requires=['sqlalchemy >= 1.0',
                         'keyring >= 4.0',
                         'shapely',
-                        'psycopg2'])
+                        'psycopg2',
+                        'keyrings.alt'])

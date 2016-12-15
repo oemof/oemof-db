@@ -114,17 +114,13 @@ def fetch_raw_data(sql, connection, geometry):
         offset = int(utc.localize(datetime(2002, 1, 1)).astimezone(
             timezone(tz)).strftime("%z")[:-2])
 
-        # Roll the dataset backwards because the first value (1. Jan, 0:00)
-        # contains the measurements of the hour before (coasDat2).
-        roll_value = offset - 1
-
         # Get the year and the length of the data array
         db_year = weather_df.loc[ix, 'year']
         db_len = len(weather_df['time_series'][ix])
 
         # Set absolute time index for the data sets to avoid errors.
         tmp_dc[ix] = pd.Series(
-            np.roll(np.array(weather_df['time_series'][ix]), roll_value),
+            np.roll(np.array(weather_df['time_series'][ix]), offset),
             index=pd.date_range(pd.datetime(db_year, 1, 1, 0),
                                 periods=db_len, freq='H', tz=tz))
     weather_df['time_series'] = pd.Series(tmp_dc)

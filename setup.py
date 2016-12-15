@@ -12,4 +12,5 @@ setup(name='oemof.db',
                         'keyring >= 4.0',
                         'shapely',
                         'psycopg2',
-                        'keyrings.alt'])
+                        'keyrings.alt',
+                        'pandas >=0.19.1, <=0.19.1'])

@@ -106,7 +106,8 @@ def fetch_raw_data(sql, connection, geometry):
 
     for ix in weather_df.index:
         # Convert the point of the weather location to a shapely object
-        weather_df.loc[ix, 'geom_point'] = wkt_loads(weather_df['geom_point'][ix])
+        weather_df.loc[ix, 'geom_point'] = wkt_loads(
+            weather_df['geom_point'][ix])
 
         # Roll the dataset forward according to the timezone, because the
         # dataset is based on utc (Berlin +1, Kiev +2, London +0)

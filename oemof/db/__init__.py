@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 import keyring
 from . import config as cfg
 from oemof.db.tools import db_table2pandas
+import getpass
 
 def url(section="postGIS"):
     """ Retrieve the URL used to connect to the database.
@@ -30,17 +31,27 @@ def url(section="postGIS"):
     :ref:`configuring <readme#configuration>` :mod:`oemof.db`.
     """
 
-    pw = keyring.get_password(cfg.get(section, "database"),
-                              cfg.get(section, "username"))
+    try:
+        pw = keyring.get_password(cfg.get(section, "database"),
+                                  cfg.get(section, "username"))
+    except NoSectionError as e:
+        print("There is no section {section} in your config file. Please "
+              "choose one available section from your config file or "
+              "specify a new one!".format(
+            section=section))
+        exit(-1)
+
 
     if pw is None:
         try:
             pw = cfg.get(section, "pw")
         except option:
-            print("Unable to find the database password in " +
-                  "the oemof config or keyring." +
-                  "\nExiting.")
-            exit(-1)
+            pw = getpass.getpass(prompt="No password available in your "\
+                                        "keyring for database {database}. "
+                                        "\n\nEnter your password to " \
+                                        "store it in "
+                                        "keyring:".format(database=section))
+            keyring.set_password(section, cfg.get(section, "username"), pw)
         except NoSectionError:
             print("Unable to find the 'postGIS' section in oemof's config." +
                   "\nExiting.")

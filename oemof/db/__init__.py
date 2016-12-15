@@ -1,4 +1,4 @@
-from configparser import NoOptionError as option, NoSectionError as section
+from configparser import NoOptionError as option, NoSectionError
 from sqlalchemy import create_engine
 import keyring
 from . import config as cfg
@@ -41,7 +41,7 @@ def url(section="postGIS"):
                   "the oemof config or keyring." +
                   "\nExiting.")
             exit(-1)
-        except section:
+        except NoSectionError:
             print("Unable to find the 'postGIS' section in oemof's config." +
                   "\nExiting.")
             exit(-1)

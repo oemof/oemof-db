@@ -9,7 +9,6 @@ from . import coastdat
 from . import powerplants as pg_pp
 from . import tools
 from feedinlib import powerplants as pp
-from oemof.core.network.entities.components import sources as source
 
 
 class Feedin:
@@ -19,8 +18,28 @@ class Feedin:
         ''
         pass
 
-    def create_fixed_source(self, conn, **kwargs):
-        ''
+    def aggregate_cap_val(self, conn, **kwargs):
+        '''
+        Returns the normalised feedin profile and installed capacity for
+        a given region.
+
+        Parameters
+        ----------
+        region : Region instance
+        region.geom : shapely.geometry object
+            Geo-spatial data with information for location/region-shape. The
+            geometry can be a polygon/multi-polygon or a point.
+
+        Returns
+        -------
+        feedin_df : pandas dataframe
+            Dataframe containing the normalised feedin profile of the given
+            region. Index of the dataframe is the hour of the year; columns
+            are 'pv_pwr' and 'wind_pwr'.
+        cap : pandas series
+            Series containing the installed capacity (in W) of PV and wind
+            turbines of the given region.
+        '''
         region = kwargs['region']
         [pv_df, wind_df, cap] = self.get_timeseries(
             conn,
@@ -31,16 +50,12 @@ class Feedin:
             self.store_full_df(pv_df, wind_df, **kwargs)
 
         # Summerize the results to one column for pv and one for wind
-        df = pd.concat([pv_df.sum(axis=1), wind_df.sum(axis=1)], axis=1)
+        cap = cap.sum()
+        df = pd.concat([pv_df.sum(axis=1) / cap['pv_pwr'],
+            wind_df.sum(axis=1) / cap['wind_pwr']], axis=1)
         feedin_df = df.rename(columns={0: 'pv_pwr', 1: 'wind_pwr'})
 
-        for stype in feedin_df.keys():
-            source.FixedSource(
-                uid=('FixedSrc', region.name, stype),
-                outputs=[obj for obj in region.entities if obj.uid == (
-                    'bus', region.name, kwargs['bustype'])],
-                val=feedin_df[stype],
-                out_max=[float(cap.sum()[stype])])
+        return feedin_df, cap
 
     def get_timeseries(self, conn, **kwargs):
         ''

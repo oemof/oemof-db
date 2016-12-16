@@ -1,10 +1,7 @@
-oemof_pg
-========
+oemof
+=====
 
 .. toctree::
    :maxdepth: 4
 
-   coastdat
-   config
-   db
-   tools
+   oemof

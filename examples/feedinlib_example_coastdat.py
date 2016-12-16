@@ -1,20 +1,19 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8
 
 try:
     from matplotlib import pyplot as plt
-    plot_fkt = True
-except:
-    plot_fkt = False
+except ImportError:
+    plt = None
 
 import logging
 from shapely import geometry as geopy
 
-from oemof_pg import db
-from oemof_pg import coastdat
+import oemof.db as db
+from oemof.db import coastdat
 
-from feedinlib import powerplants as plants
-from feedinlib import models
+import feedinlib.powerplants as plants
+import feedinlib.models as models
 
 # Feel free to remove or change these lines
 import warnings
@@ -80,12 +79,14 @@ vestasV90 = {
 year = 2010
 
 conn = db.connection()
-my_weather = coastdat.get_weather(
+my_weather_single = coastdat.get_weather(
     conn, geopy.Point(loc_berlin['longitude'], loc_berlin['latitude']), year)
 
 geo = geopy.Polygon([(12.2, 52.2), (12.2, 51.6), (13.2, 51.6), (13.2, 52.2)])
 multi_weather = coastdat.get_weather(conn, geo, year)
+
 my_weather = multi_weather[0]
+# my_weather = my_weather_single
 
 # Initialise different power plants
 E126_power_plant = plants.WindPowerPlant(**enerconE126)
@@ -101,7 +102,7 @@ V90_feedin = V90_power_plant.feedin(
 E126_feedin.name = 'E126'
 V90_feedin.name = 'V90'
 
-if plot_fkt:
+if plt:
     E126_feedin.plot(legend=True)
     V90_feedin.plot(legend=True)
     plt.show()
@@ -123,7 +124,7 @@ pv_feedin4.name = 'Yingli'
 pv_feedin5.name = 'Advent'
 
 # Output
-if plot_fkt:
+if plt:
     pv_feedin4.plot(legend=True)
     pv_feedin5.plot(legend=True)
     plt.show()
@@ -135,7 +136,7 @@ w_model = models.SimpleWindTurbine()
 w_model.get_wind_pp_types()
 cp_values = models.SimpleWindTurbine().fetch_cp_values(
     wind_conv_type='ENERCON E 126 7500')
-if plot_fkt:
+if plt:
     plt.plot(cp_values.loc[0, :][2:55].index,
              cp_values.loc[0, :][2:55].values, '*')
     plt.show()

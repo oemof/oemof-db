@@ -2,7 +2,7 @@ An oemof extension to use the oemof related postgis database.
 
 See `the documentation`_ for more information!
 
-.. _`the _the documentation: https://oemofdb.readthedocs.io
+.. _`the documentation: https://oemofdb.readthedocs.io
 
 
 

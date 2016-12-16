@@ -53,6 +53,7 @@ def load_config(filename):
     Specify absolute or relative path to your config file.
 
     :param filename: Relative or absolute path
+    :type filename: str
     """
 
     if filename is None:
@@ -85,7 +86,7 @@ def file_not_found_message(file_not_found):
     Show error message incl. help if file not found
 
     :param filename:
-    :return:
+    :type filename: str
     """
 
     logging.error(
@@ -114,6 +115,7 @@ def init(FILE):
     Read config file
 
     :param FILE: Absolute path to config file (incl. filename)
+    :type FILE: str
     """
     try:
         cfg.read(FILE)

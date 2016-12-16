@@ -36,6 +36,14 @@ oemof.db.powerplants module
     :undoc-members:
     :show-inheritance:
 
+oemof.db.test_config_changes module
+-----------------------------------
+
+.. automodule:: oemof.db.test_config_changes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 oemof.db.tools module
 ---------------------
 

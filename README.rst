@@ -1,8 +1,8 @@
-[![Documentation Status](https://readthedocs.org/projects/oemofdb/badge/?version=dev)](http://oemofdb.readthedocs.io/en/dev/?badge=dev)
-
 An oemof extension to use the oemof related postgis database.
 
-To use this extension you have to have access to the oemof postgis database.
+See `the documentation`_ for more information!
+
+.. _`the _the documentation: https://oemofdb.readthedocs.io
 
 
 

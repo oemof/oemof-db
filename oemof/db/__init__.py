@@ -5,7 +5,8 @@ from . import config as cfg
 from oemof.db.tools import db_table2pandas
 import getpass
 
-def url(section="postGIS"):
+
+def url(section="postGIS", config_file=None):
     """ Retrieve the URL used to connect to the database.
 
     Use this if you have your own means of accessing the database and do not
@@ -23,6 +24,9 @@ def url(section="postGIS"):
         The URL with which one can connect to the database. Be careful as this
         will probably contain sensitive data like the username/password
         combination.
+    config_file : str, optional
+        Relative of absolute of config.ini. If not specified, it tries to read
+        from .oemof/config.ini in your HOME dir
 
     Notes
     -----
@@ -30,6 +34,8 @@ def url(section="postGIS"):
     For documentation on config.ini see the README section on
     :ref:`configuring <readme#configuration>` :mod:`oemof.db`.
     """
+
+    cfg.load_config(config_file)
 
     try:
         pw = keyring.get_password(cfg.get(section, "database"),
@@ -65,7 +71,7 @@ def url(section="postGIS"):
             port=int(cfg.get(section, "port")))
 
 
-def engine(section="postGIS"):
+def engine(section="postGIS", config_file=None):
     """Creates engine object for database access
 
     If keyword argument `section` is used it requires an existing config.ini
@@ -76,6 +82,9 @@ def engine(section="postGIS"):
     section : str, optional
         Section (in config.ini) of targeted database containing connection
         details that are used to set up connection
+    config_file : str, optional
+        Relative of absolute of config.ini. If not specified, it tries to read
+        from .oemof/config.ini in your HOME dir
 
     Returns
     -------
@@ -88,10 +97,11 @@ def engine(section="postGIS"):
     For documentation on config.ini see the README section on
     :ref:`configuring <readme#configuration>` :mod:`oemof.db`.
     """
-    return create_engine(url(section))
+
+    return create_engine(url(section, config_file=config_file))
 
 
-def connection(section="postGIS"):
+def connection(section="postGIS", config_file=None):
     """Database connection method of sqlalchemy engine object
 
     This function purely calls the `connect()` method of the engine object
@@ -99,4 +109,5 @@ def connection(section="postGIS"):
 
     For description of parameters see :py:func:`engine`.
     """
-    return engine(section=section).connect()
+
+    return engine(section=section, config_file=config_file).connect()

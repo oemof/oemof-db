@@ -29,7 +29,8 @@ Option2 = value2 \n
 
 
 """
-import os.path as path
+import os
+import logging
 
 try:
     import configparser as cp
@@ -38,23 +39,88 @@ except:
     import ConfigParser as cp
 
 FILENAME = 'config.ini'
-FILE = path.join(path.expanduser("~"), '.oemof', FILENAME)
+FILE = os.path.join(os.path.expanduser("~"), '.oemof', FILENAME)
 
 cfg = cp.RawConfigParser()
 _loaded = False
+
+
+def load_config(filename):
+    """
+    Load data from config file to `cfg` that can be accessed by get, set
+    afterwards.
+
+    Specify absolute or relative path to your config file.
+
+    :param filename: Relative or absolute path
+    """
+
+    if filename is None:
+        filename = ''
+
+    abs_filename = os.path.join(os.getcwd(), filename)
+
+    global FILE
+
+    # find the config file
+    if os.path.isfile(filename):
+        FILE = filename
+    elif os.path.isfile(abs_filename):
+        FILE = abs_filename
+    elif os.path.isfile(FILE):
+        pass
+    else:
+        if os.path.dirname(filename):
+            file_not_found = filename
+        else:
+            file_not_found = abs_filename
+        file_not_found_message(file_not_found)
+
+    # load config
+    init(FILE)
+
+
+def file_not_found_message(file_not_found):
+    """
+    Show error message incl. help if file not found
+
+    :param filename:
+    :return:
+    """
+
+    logging.error(
+        """
+        Config file {file} cannot be found.  Make sure this file exists!
+
+        An exemplary section in the config file looks as follows
+
+        [database]
+        username = username under which to connect to the database
+        database = name of the database from which to read
+        host     = host to connect to
+        port     = port to connect to
+
+        For further advice, see in the docs (https://oemofdb.readthedocs.io)
+        how to format the config.
+        """.format(file=file_not_found))
 
 
 def main():
     pass
 
 
-def init():
+def init(FILE):
+    """
+    Read config file
+
+    :param FILE: Absolute path to config file (incl. filename)
+    """
     try:
         cfg.read(FILE)
         global _loaded
         _loaded = True
     except:
-        print("configfile not found.")
+        file_not_found_message(FILE)
 
 
 def get(section, key):
@@ -71,8 +137,9 @@ def get(section, key):
     if no cast is successfull, the raw string will be returned.
 
     """
+    # FILE = 'config_misc'
     if not _loaded:
-        init()
+        init(FILE)
     try:
         return cfg.getfloat(section, key)
     except Exception:

@@ -52,7 +52,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'oemof.db'
-copyright = u'2015, oemof developing group'
+copyright = u'2015-2016, oemof developing group'
 author = u'Uwe Krien, oemof developing group'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -277,7 +277,7 @@ texinfo_documents = [
 epub_title = u'oemof.db'
 epub_author = u'Uwe Krien, oemof developing group'
 epub_publisher = u'oemof developing group'
-epub_copyright = u'2015, oemof developing group'
+epub_copyright = u'2015-2016, oemof developing group'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'pahesmf'

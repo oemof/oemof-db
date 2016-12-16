@@ -1,11 +1,13 @@
-v0.0.4 (TBA)
-+++++++++++++++++++++++++
+v0.0.4 (December 16, 2016)
+++++++++++++++++++++++++++
 
 New features
 ############
 
  * Create an empty database table with primary key type serial in `tools.py`
  * Access grant to users/ group of users, see `grant_db_access` in `tools.py`
+ * Additional optional keyword argument to specify config file (`issue #21 <https://github.com/oemof/oemof.db/issues/21>`_)
+ * Ask for password and save store in keyring if not existent (`issue #22 <https://github.com/oemof/oemof.db/issues/22>`_)
 
 
 Documentation
@@ -30,3 +32,4 @@ Contributors
 ############
 
  * Guido Pleßmann
+ * Uwe Krien

@@ -1,36 +1,68 @@
+[![Documentation Status](https://readthedocs.org/projects/oemofdb/badge/?version=dev)](http://oemofdb.readthedocs.io/en/dev/?badge=dev)
+
 An oemof extension to use the oemof related postgis database.
 
 To use this extension you have to have access to the oemof postgis database.
 
-The oemof code will be released in early 2016 but you can try this extension
-already with the feedinlib. If you are interested to join the oemof database
-project please contact us.
+
 
 Installation
 ++++++++++++
 
-Clone the repository to your local system.
+Use pypi to install the latest oemof version.
+
+.. code:: bash
+
+  pip3 install oemof
+
+If you want to have the developer version clone the repository by
 
   .. code:: bash
 
     git clone git@github.com:oemof/oemof.db.git
 
-Then you can install it using pip3 with the -e flag.
+and can install it using pip3 with the -e flag.
 
   .. code:: bash
 
     sudo pip3 install -e <path/to/the/oemof.db/root/dir>
 
-
 .. _readme#configuration:
 
-Configuration
-+++++++++++++
+Keep `virtualenvs`_ in mind!
+
+.. _`keyring package`: https://virtualenv.pypa.io
+
+Configuration and usage
++++++++++++++++++++++++
 
 As the purpose of this package is to facilitate usage of the ``oemof``
 database, it needs to know how to connect to this database. Being part of
-``oemof``, ``oemof.db`` looks for this configuration in the file ``config.ini``
-in a directory called ``.oemof`` in your home directory.
+``oemof``, as fallback ``oemof.db`` always looks for this configuration in the
+file ``config.ini`` in a directory called ``.oemof`` in your home directory.
+
+A particular config-file can either specified and accessed via
+
+
+.. code-block:: python
+
+    from oemof.db import cfg
+
+    # only load config file
+    cfg.load_config(config_file=<you-config-file>)
+
+    # access config parameters
+    cfg.get(<section>, <parameter>)
+
+If you're interested in establishing a database connection and specify config
+file connection parameters are stored in use
+
+.. code-block:: python
+
+    from oemof.db import cfg
+
+    # establish database connection with specified section and config_file
+    db.connection(section=<section>, config_file=<you-config-file>)
 
 To configure database access this file has to have at least one dedicated
 section containing the necessary options, like this:
@@ -62,9 +94,3 @@ where ``"database"`` and ``"username"`` have the same values as the
 corresponding options in ``config.ini``.
 
 .. _`keyring package`: https://pypi.python.org/pypi/keyring
-
-Required packages
-+++++++++++++++++
-
-* python3-sqlalchemy
-* python3-keyring

@@ -6,6 +6,8 @@ from oemof.db.tools import db_table2pandas
 import getpass
 
 
+__version__ = '0.0.5'
+
 def url(section="postGIS", config_file=None):
     """ Retrieve the URL used to connect to the database.
 

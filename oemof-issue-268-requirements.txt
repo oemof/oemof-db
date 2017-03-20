@@ -1,1 +1,0 @@
--e git+https://github.com/oemof/oemof.git@7188d113f949eebd8bb9d0a7af3c8957d09274f8#egg=oemof.db

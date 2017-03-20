@@ -13,7 +13,7 @@ Use pypi to install the latest oemof version.
 
 .. code:: bash
 
-  pip3 install oemof
+  pip3 install oemof.db
 
 If you want to have the developer version clone the repository by
 

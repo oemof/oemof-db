@@ -1,0 +1,14 @@
+v0.0.5 (March 20th, 2017)
++++++++++++++++++++++++++
+
+Bug fixes
+#########
+
+ * In order to play well with `oemof`, `oemof/db/__init__.py` has been
+   removed. This should fix `oemof`'s `issue #269 <https://github.com/oemof/oemof/issues/269>`_.
+
+Contributors
+############
+
+ * Stephan Günther
+

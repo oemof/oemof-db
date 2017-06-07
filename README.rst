@@ -9,11 +9,24 @@ See `the documentation`_ for more information!
 Installation
 ++++++++++++
 
-Use pypi to install the latest oemof version.
+  .. raw:: html
 
-.. code:: bash
+    <s>
+    Use pypi to install the latest oemof version.
 
-  pip3 install oemof.db
+    .. code:: bash
+
+      pip3 install oemof.db
+    </s>
+
+Unfortunately installing the PyPi package doesn't work until #28 is fixed.
+Instead, you have to install via:
+
+  .. code:: bash
+
+    pip install -e git://github.com/oemof/oemof.db.git@master#egg=oemof.db
+
+Note that you have to have `git` installed for this to work.
 
 If you want to have the developer version clone the repository by
 
@@ -21,7 +34,7 @@ If you want to have the developer version clone the repository by
 
     git clone git@github.com:oemof/oemof.db.git
 
-and can install it using pip3 with the -e flag.
+and you can install it using pip3 with the -e flag.
 
   .. code:: bash
 

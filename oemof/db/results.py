@@ -22,11 +22,11 @@ The following code will setup your sqlalchemy session and
 create all needed tables in database:
 >>> from sqlalchemy import orm
 >>> import sqlahelper
+>>> from oemof.db.results import Base
 
 >>> engine = sqlalchemy.create_engine(db_url)
 >>> sqlahelper.add_engine(engine)
 >>> SqlAlchemySession = orm.sessionmaker(bind=engine)
->>> from results import Base
 >>> Base.metadata.bind = engine
 >>> Base.metadata.create_all()
 

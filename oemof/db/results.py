@@ -26,7 +26,7 @@ create all needed tables in database:
 >>> engine = sqlalchemy.create_engine(db_url)
 >>> sqlahelper.add_engine(engine)
 >>> SqlAlchemySession = orm.sessionmaker(bind=engine)
->>> from oemof_results import Base
+>>> from results import Base
 >>> Base.metadata.bind = engine
 >>> Base.metadata.create_all()
 

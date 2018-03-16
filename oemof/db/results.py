@@ -22,22 +22,22 @@ The following code will setup your sqlalchemy session and
 create all needed tables in database:
 >>> from sqlalchemy import orm
 >>> import sqlahelper
->>> from oemof.db.results import Base
+>>> from oemof.db import results
 
 >>> engine = sqlalchemy.create_engine(db_url)
 >>> sqlahelper.add_engine(engine)
 >>> SqlAlchemySession = orm.sessionmaker(bind=engine)
->>> Base.metadata.bind = engine
->>> Base.metadata.create_all()
+>>> results.Base.metadata.bind = engine
+>>> results.Base.metadata.create_all()
 
 The following code stores your data into DB:
 >>> sa_session = SqlAlchemySession()
->>> store_results(sa_session, input_dict, result_dict)
+>>> results.store_results(sa_session, input_dict, result_dict)
 >>> sa_session.close()
 
 The following code restores your data from DB:
 >>> sa_session = SqlAlchemySession()
->>> input_dict, result_dict = restore_results(sa_session, result_id)
+>>> input_dict, result_dict = results.restore_results(sa_session, result_id)
 >>> sa_session.close()
 """
 

@@ -1,12 +1,3 @@
-
-import pandas
-from sqlalchemy import (
-    Column, Integer, String, ARRAY, ForeignKey)
-from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
-from sqlalchemy.ext.declarative import declarative_base
-from oemof.outputlib.processing import convert_keys_to_strings
-
 """
 Module to store and restore input- and result-data from oemof into database.
 Works with oemof version 2.0
@@ -40,6 +31,16 @@ The following code restores your data from DB:
 >>> input_dict, result_dict = results.restore_results(sa_session, result_id)
 >>> sa_session.close()
 """
+
+
+import pandas
+from sqlalchemy import (
+    Column, Integer, String, ARRAY, ForeignKey)
+from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
+from sqlalchemy.ext.declarative import declarative_base
+from oemof.outputlib.processing import convert_keys_to_strings
+
 
 Base = declarative_base()
 

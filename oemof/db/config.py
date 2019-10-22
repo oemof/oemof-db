@@ -26,17 +26,12 @@ database = znes \n
 [SectionName] \n
 OptionName = value \n
 Option2 = value2 \n
-
-
 """
+
 import os
 import logging
 
-try:
-    import configparser as cp
-except:
-    # to be compatible with Python2.7
-    import ConfigParser as cp
+import configparser as cp
 
 FILENAME = 'config.ini'
 FILE = os.path.join(os.path.expanduser("~"), '.oemof', FILENAME)
@@ -52,8 +47,10 @@ def load_config(filename):
 
     Specify absolute or relative path to your config file.
 
-    :param filename: Relative or absolute path
-    :type filename: str
+    Parameters
+    ----------
+    filename : str
+        Relative or absolute path
     """
 
     if filename is None:
@@ -85,8 +82,10 @@ def file_not_found_message(file_not_found):
     """
     Show error message incl. help if file not found
 
-    :param filename:
-    :type filename: str
+    Parameters
+    ----------
+    file_not_found : str
+        Relative or absolute path
     """
 
     logging.error(
@@ -114,8 +113,10 @@ def init(FILE):
     """
     Read config file
 
-    :param FILE: Absolute path to config file (incl. filename)
-    :type FILE: str
+    Parameters
+    ----------
+    FILE : str
+        Absolute path to config file (incl. filename)
     """
     try:
         cfg.read(FILE)
@@ -130,13 +131,18 @@ def get(section, key):
     returns the value of a given key of a given section of the main
     config file.
 
-    :param section: the section.
-    :type section: str.
-    :param key: the key.
-    :type key: str.
+    Parameters
+    ----------
+    section : str
+        the section.
+    key : str
+        the key.
 
-    :returns: the value which will be casted to float, int or boolean.
-    if no cast is successfull, the raw string will be returned.
+    Returns
+    -------
+    float, int, bool, str
+        The value which will be casted to float, int or boolean. If no cast is
+        successful, the raw string will be returned.
 
     """
     # FILE = 'config_misc'
@@ -159,16 +165,18 @@ def set(section, key, value):
     sets a value to a [section] key - pair.
     if the section doesn't exist yet, it will be created.
 
-    :param section: the section.
-    :type section: str.
-    :param key: the key.
-    :type key: str.
-    :param value: the value.
-    :type value: float, int, str.
+    Parameters
+    ----------
+    section : str
+        the section.
+    key : str
+        the key.
+    value : float, int, str
+        the value.
     """
 
     if not _loaded:
-        init()
+        init(FILE)
 
     if not cfg.has_section(section):
         cfg.add_section(section)
@@ -177,6 +185,7 @@ def set(section, key, value):
 
     with open(FILE, 'w') as configfile:
         cfg.write(configfile)
+
 
 if __name__ == "__main__":
     main()

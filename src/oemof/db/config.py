@@ -27,12 +27,12 @@ database = znes \n
 OptionName = value \n
 Option2 = value2 \n
 
-
 """
-import configparser as cp
-import logging
-import os
 
+import os
+import logging
+
+import configparser as cp
 
 FILENAME = 'config.ini'
 FILE = os.path.join(os.path.expanduser("~"), '.oemof', FILENAME)
@@ -48,8 +48,10 @@ def load_config(filename):
 
     Specify absolute or relative path to your config file.
 
-    :param filename: Relative or absolute path
-    :type filename: str
+    Parameters
+    ----------
+    filename : str
+        Relative or absolute path
     """
 
     if filename is None:
@@ -84,7 +86,7 @@ def file_not_found_message(file_not_found):
     Parameters
     ----------
     file_not_found : str
-
+        Relative or absolute path
     """
 
     logging.error(
@@ -101,10 +103,7 @@ def file_not_found_message(file_not_found):
 
         For further advice, see in the docs (https://oemofdb.readthedocs.io)
         how to format the config.
-        """.format(
-            file=file_not_found
-        )
-    )
+        """.format(file=file_not_found))
 
 
 def main():
@@ -135,13 +134,14 @@ def get(section, key):
     ----------
     section : str
         the section.
-    key: str
+    key : str
         the key.
 
     Returns
     -------
-    The value which will be casted to float, int or boolean. If no cast
-        is successful, the raw string will be returned.
+    float, int, bool, str
+        The value which will be casted to float, int or boolean. If no cast is
+        successful, the raw string will be returned.
 
     """
     # FILE = 'config_misc'
@@ -173,9 +173,8 @@ def set(section, key, value):
         the section.
     key : str
         the key.
-    value : str
-        the value#
-
+    value : float, int, str
+        the value.
     """
 
     if not _loaded:

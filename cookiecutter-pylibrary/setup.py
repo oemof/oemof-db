@@ -1,18 +1,13 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import absolute_import, print_function
 
 import io
 import re
 from glob import glob
-from os.path import basename
-from os.path import dirname
-from os.path import join
-from os.path import splitext
+from os.path import basename, dirname, join, splitext
 
-from setuptools import find_packages
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 def read(*names, **kwargs):
@@ -27,7 +22,10 @@ setup(
     name='oemof.db',
     version='0.0.6dev',
     license='MIT',
-    description='Open Energy Modelling Framework - An extension for all database related things',
+    description=(
+        'Open Energy Modelling Framework'
+        ' - An extension for all database related things'
+    ),
     long_description='%s\n%s'
     % (
         re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub(
@@ -44,7 +42,8 @@ setup(
     include_package_data=True,
     zip_safe=False,
     classifiers=[
-        # complete classifier list: http://pypi.python.org/pypi?%3Aaction=list_classifiers
+        # complete classifier list:
+        #   http://pypi.python.org/pypi?%3Aaction=list_classifiers
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',

@@ -18,7 +18,7 @@ from setuptools import setup
 def read(*names, **kwargs):
     with io.open(
         join(dirname(__file__), *names),
-        encoding=kwargs.get('encoding', 'utf8')
+        encoding=kwargs.get('encoding', 'utf8'),
     ) as fh:
         return fh.read()
 
@@ -28,9 +28,12 @@ setup(
     version='0.0.6dev',
     license='MIT',
     description='Open Energy Modelling Framework - An extension for all database related things',
-    long_description='%s\n%s' % (
-        re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub('', read('README.rst')),
-        re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst'))
+    long_description='%s\n%s'
+    % (
+        re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub(
+            '', read('README.rst')
+        ),
+        re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst')),
     ),
     author='Stephan Günther',
     author_email='gnn.code@gmail.com',

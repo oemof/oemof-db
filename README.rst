@@ -4,7 +4,7 @@ Overview
 
 .. start-badges
 
-|version| |commits-since| |supported-versions|
+|version| |commits-since| |supported-versions| |license|
 
 |travis| |wheel| |supported-implementations| |docs|
 
@@ -59,6 +59,10 @@ Overview
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/oemof/oemof.db/
 
+
+.. |license| image:: https://img.shields.io/pypi/l/oemof.db.svg?colorB=blue
+    :alt: PyPI - License
+    :target: https://github.com/oemof/oemof.db/blob/master/LICENSE
 
 .. end-badges
 

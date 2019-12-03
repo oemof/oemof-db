@@ -50,9 +50,7 @@ if not on_rtd:  # only set the theme if we're building docs locally
 html_use_smartypants = True
 html_last_updated_fmt = '%b %d, %Y'
 html_split_index = False
-html_sidebars = {
-   '**': ['searchbox.html', 'globaltoc.html', 'sourcelink.html'],
-}
+html_sidebars = {'**': ['searchbox.html', 'globaltoc.html', 'sourcelink.html']}
 html_short_title = '%s-%s' % (project, version)
 
 # Output file base name for HTML help builder.
@@ -70,16 +68,14 @@ latex_elements = {}
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'oemof.db.tex', u'oemof.db Documentation', author, 'manual'),
+    ('index', 'oemof.db.tex', u'oemof.db Documentation', author, 'manual')
 ]
 
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ('index', 'oemof.db', u'oemof.db Documentation', [author], 1)
-]
+man_pages = [('index', 'oemof.db', u'oemof.db Documentation', [author], 1)]
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -87,10 +83,16 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'oemof.db', u'oemof.db Documentation', author, 'oemof.db',
-   'Database related functionality of the open energy modelling framework, '
-   'split out into a separate package.',
-   'Miscellaneous'),
+    (
+        'index',
+        'oemof.db',
+        u'oemof.db Documentation',
+        author,
+        'oemof.db',
+        'Database related functionality of the open energy modelling framework, '
+        'split out into a separate package.',
+        'Miscellaneous',
+    )
 ]
 
 # -- Options for Epub output ----------------------------------------------
@@ -103,4 +105,3 @@ epub_copyright = u'2015-{0}, {1}'.format(year, author)
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
-

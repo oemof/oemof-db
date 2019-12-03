@@ -42,17 +42,21 @@ class Feedin:
         '''
         region = kwargs['region']
         [pv_df, wind_df, cap] = self.get_timeseries(
-            conn,
-            geometry=region.geom,
-            **kwargs)
+            conn, geometry=region.geom, **kwargs
+        )
 
         if kwargs.get('store', False):
             self.store_full_df(pv_df, wind_df, **kwargs)
 
         # Summerize the results to one column for pv and one for wind
         cap = cap.sum()
-        df = pd.concat([pv_df.sum(axis=1) / cap['pv_pwr'],
-            wind_df.sum(axis=1) / cap['wind_pwr']], axis=1)
+        df = pd.concat(
+            [
+                pv_df.sum(axis=1) / cap['pv_pwr'],
+                wind_df.sum(axis=1) / cap['wind_pwr'],
+            ],
+            axis=1,
+        )
         feedin_df = df.rename(columns={0: 'pv_pwr', 1: 'wind_pwr'})
 
         return feedin_df, cap
@@ -60,7 +64,8 @@ class Feedin:
     def get_timeseries(self, conn, **kwargs):
         ''
         weather = coastdat.get_weather(
-            conn, kwargs['geometry'], kwargs['year'])
+            conn, kwargs['geometry'], kwargs['year']
+        )
 
         pv_df = 0
         pv_cap = {}
@@ -72,24 +77,26 @@ class Feedin:
 
         for w_cell in weather:
             ee_pps = pg_pp.get_energymap_pps(
-                conn, geometry1=w_cell.geometry, geometry2=kwargs['geometry'])
+                conn, geometry1=w_cell.geometry, geometry2=kwargs['geometry']
+            )
 
             # Find type of wind turbine and its parameters according to the
             # windzone.
             wz = tools.get_windzone(conn, w_cell.geometry)
 
-            kwargs['wind_conv_type'] = (kwargs['wka_model_dc'].get(
-                wz, kwargs['wka_model']))
-            kwargs['d_rotor'] = (kwargs['d_rotor_dc'].get(
-                wz, kwargs['d_rotor']))
-            kwargs['h_hub'] = (kwargs['h_hub_dc'].get(wz, kwargs['h_hub']))
+            kwargs['wind_conv_type'] = kwargs['wka_model_dc'].get(
+                wz, kwargs['wka_model']
+            )
+            kwargs['d_rotor'] = kwargs['d_rotor_dc'].get(wz, kwargs['d_rotor'])
+            kwargs['h_hub'] = kwargs['h_hub_dc'].get(wz, kwargs['h_hub'])
 
             # Determine the feedin time series for the weather cell
             # Wind energy
             wind_peak_power = ee_pps[ee_pps.type == 'wind_power'].cap.sum()
             wind_power_plant = pp.WindPowerPlant(**kwargs)
             wind_series = wind_power_plant.feedin(
-                weather=w_cell, installed_capacity=wind_peak_power)
+                weather=w_cell, installed_capacity=wind_peak_power
+            )
             wind_series.name = w_cell.name
             wind_cap[w_cell.name] = wind_peak_power
 
@@ -97,7 +104,8 @@ class Feedin:
             pv_peak_power = ee_pps[ee_pps.type == 'solar_power'].cap.sum()
             pv_plant = pp.Photovoltaic(**kwargs)
             pv_series = pv_plant.feedin(
-                weather=w_cell, peak_power=pv_peak_power)
+                weather=w_cell, peak_power=pv_peak_power
+            )
             pv_series.name = w_cell.name
             pv_cap[w_cell.name] = pv_peak_power
 
@@ -120,8 +128,7 @@ class Feedin:
 
     def store_full_df(self, pv_df, wind_df, **kwargs):
         ''
-        dpath = kwargs.get(
-            'dpath', path.join(path.expanduser("~"), '.oemof'))
+        dpath = kwargs.get('dpath', path.join(path.expanduser("~"), '.oemof'))
         filename = kwargs.get('filename', 'feedin_' + kwargs['region'].name)
         fullpath = path.join(dpath, filename)
 

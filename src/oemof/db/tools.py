@@ -19,7 +19,8 @@ try:
     from shapely.wkt import loads as wkt_loads
 except:
     logging.info(
-        'You will not be able to use the helper function: {0}'.format(hlp_fkt))
+        'You will not be able to use the helper function: {0}'.format(hlp_fkt)
+    )
     logging.info('Install shapely to use it.')
 
 
@@ -28,7 +29,8 @@ def get_polygons_from_table(conn, schema, table, g_col='geom', n_col='name'):
         SELECT {n_col}, st_astext({g_col})
         FROM {schema}.{table};
     '''.format(
-        **{'n_col': n_col, 'g_col': g_col, 'schema': schema, 'table': table})
+        **{'n_col': n_col, 'g_col': g_col, 'schema': schema, 'table': table}
+    )
     logging.debug(sql)
     raw_data = conn.execute(sql).fetchall()
     polygon_dc = {}
@@ -129,7 +131,9 @@ def get_polygon_from_nuts(conn, nuts):
         SELECT st_astext(ST_Transform(st_union(geom), 4326))
         FROM oemof.geo_nuts_rg_2013
         WHERE nuts_id in {0};
-    '''.format(tuple(nuts))
+    '''.format(
+        tuple(nuts)
+    )
     return wkt_loads(conn.execute(sql).fetchone()[0])
 
 
@@ -227,7 +231,9 @@ def get_polygon_from_postgis(conn, schema, table, gcol='geom', union=False):
     sql = '''
         SELECT st_astext(ST_Transform({geo_string}, 4326))
         FROM {schema}.{table};
-    '''.format(**{'geo_string': geo_string, 'schema': schema, 'table': table})
+    '''.format(
+        **{'geo_string': geo_string, 'schema': schema, 'table': table}
+    )
     return wkt_loads(conn.execute(sql).fetchone()[0])
 
 
@@ -262,13 +268,17 @@ def tz_from_geom(connection, geometry):
     sql = """
         SELECT tzid FROM oemof_test.tz_world
         WHERE st_contains(geom, ST_PointFromText('{wkt}', 4326));
-        """.format(wkt=coords.wkt)
+        """.format(
+        wkt=coords.wkt
+    )
 
     if not connection.execute(sql).fetchone():
         sql = """
             SELECT tzid FROM oemof_test.tz_world
             ORDER BY ST_PointFromText('{wkt}', 4326) <#> geom LIMIT 1;
-            """.format(wkt=coords.wkt)
+            """.format(
+            wkt=coords.wkt
+        )
     return connection.execute(sql).fetchone()[0]
 
 
@@ -282,7 +292,9 @@ def get_windzone(conn, geometry):
     sql = """
         SELECT zone FROM oemof_test.windzones
         WHERE st_contains(geom, ST_PointFromText('{wkt}', 4326));
-        """.format(wkt=coords.wkt)
+        """.format(
+        wkt=coords.wkt
+    )
     zone = conn.execute(sql).fetchone()
     if zone is not None:
         zone = zone[0]
@@ -291,8 +303,9 @@ def get_windzone(conn, geometry):
     return zone
 
 
-def create_empty_table_serial_primary(conn, schema, table, columns=None,
-                                      id_col='id'):
+def create_empty_table_serial_primary(
+    conn, schema, table, columns=None, id_col='id'
+):
     r"""New database table with primary key type serial and empty columns
 
     Parameters
@@ -317,7 +330,9 @@ def create_empty_table_serial_primary(conn, schema, table, columns=None,
 
     sql_str = """CREATE TABLE {schema}.{table} ({id_col} SERIAL PRIMARY KEY
         NOT NULL)
-        """.format(schema=schema, table=table, id_col=id_col)
+        """.format(
+        schema=schema, table=table, id_col=id_col
+    )
 
     conn.execute(sql_str)
 
@@ -326,8 +341,11 @@ def create_empty_table_serial_primary(conn, schema, table, columns=None,
         for col in columns:
             col_str = """alter table {schema}.{table} add column {col}
                 double precision;
-                """.format(schema=schema, table=table, col=col)
+                """.format(
+                schema=schema, table=table, col=col
+            )
             conn.execute(col_str)
+
 
 def grant_db_access(conn, schema, table, role):
     r"""Gives access to database users/ groups
@@ -345,8 +363,9 @@ def grant_db_access(conn, schema, table, role):
 
     """
     grant_str = """GRANT ALL ON TABLE {schema}.{table}
-    TO {role} WITH GRANT OPTION;""".format(schema=schema, table=table,
-                                           role=role)
+    TO {role} WITH GRANT OPTION;""".format(
+        schema=schema, table=table, role=role
+    )
 
     conn.execute(grant_str)
 
@@ -367,7 +386,8 @@ def add_primary_key(conn, schema, table, pk_col):
 
     """
     sql_str = """alter table {schema}.{table} add primary key ({col})""".format(
-        schema=schema, table=table, col=pk_col)
+        schema=schema, table=table, col=pk_col
+    )
 
     conn.execute(sql_str)
 
@@ -388,9 +408,9 @@ def change_owner_to(conn, schema, table, role):
 
     """
     sql_str = """ALTER TABLE {schema}.{table}
-        OWNER TO {role};""".format(schema=schema,
-                                   table=table,
-                                   role=role)
+        OWNER TO {role};""".format(
+        schema=schema, table=table, role=role
+    )
 
     conn.execute(sql_str)
 
@@ -400,6 +420,6 @@ def db_table2pandas(conn, schema, table, columns=None):
         columns = '*'
     sql = "SELECT {0} FROM {1}.{2};".format(columns, schema, table)
     logging.debug("SQL query: {0}".format(sql))
-    results = (conn.execute(sql))
+    results = conn.execute(sql)
     columns = results.keys()
     return pd.DataFrame(results.fetchall(), columns=columns)

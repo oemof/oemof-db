@@ -103,7 +103,10 @@ def file_not_found_message(file_not_found):
 
         For further advice, see in the docs (https://oemofdb.readthedocs.io)
         how to format the config.
-        """.format(file=file_not_found))
+        """.format(
+            file=file_not_found
+        )
+    )
 
 
 def main():
@@ -177,6 +180,7 @@ def set(section, key, value):
 
     with open(FILE, 'w') as configfile:
         cfg.write(configfile)
+
 
 if __name__ == "__main__":
     main()

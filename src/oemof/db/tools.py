@@ -17,7 +17,7 @@ import pandas as pd
 hlp_fkt = 'get_polygon_from_nuts'
 try:
     from shapely.wkt import loads as wkt_loads
-except:
+except Exception:
     logging.info(
         'You will not be able to use the helper function: {0}'.format(hlp_fkt)
     )
@@ -385,7 +385,7 @@ def add_primary_key(conn, schema, table, pk_col):
         Column that primary key is applied to
 
     """
-    sql_str = """alter table {schema}.{table} add primary key ({col})""".format(
+    sql_str = "alter table {schema}.{table} add primary key ({col})".format(
         schema=schema, table=table, col=pk_col
     )
 

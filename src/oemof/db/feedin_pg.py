@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import logging
 import pandas as pd
 import os.path as path
 
@@ -113,7 +112,7 @@ class Feedin:
             try:
                 pv_df = pd.concat([pv_df, pv_series], axis=1)
                 wind_df = pd.concat([wind_df, wind_series], axis=1)
-            except:
+            except Exception:
                 pv_df = pv_series.to_frame()
                 wind_df = wind_series.to_frame()
 

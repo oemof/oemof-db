@@ -32,11 +32,8 @@ Option2 = value2 \n
 import os
 import logging
 
-try:
-    import configparser as cp
-except:
-    # to be compatible with Python2.7
-    import ConfigParser as cp
+import configparser as cp
+
 
 FILENAME = 'config.ini'
 FILE = os.path.join(os.path.expanduser("~"), '.oemof', FILENAME)
@@ -124,7 +121,7 @@ def init(FILE):
         cfg.read(FILE)
         global _loaded
         _loaded = True
-    except:
+    except Exception:
         file_not_found_message(FILE)
 
 
@@ -150,10 +147,10 @@ def get(section, key):
     except Exception:
         try:
             return cfg.getint(section, key)
-        except:
+        except Exception:
             try:
                 return cfg.getboolean(section, key)
-            except:
+            except Exception:
                 return cfg.get(section, key)
 
 

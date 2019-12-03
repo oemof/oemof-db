@@ -13,12 +13,12 @@ Works with oemof version 2.0
 
 Notes
 -----
-By now, table names are static - if you are not satisfied with resulting 
+By now, table names are static - if you are not satisfied with resulting
 table names, you have to change code yourself!
 
 Examples
 --------
-The following code will setup your sqlalchemy session and 
+The following code will setup your sqlalchemy session and
 create all needed tables in database:
 >>> from sqlalchemy import orm
 >>> import sqlahelper

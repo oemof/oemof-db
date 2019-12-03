@@ -45,7 +45,7 @@ def url(section="postGIS", config_file=None):
         pw = keyring.get_password(
             cfg.get(section, "database"), cfg.get(section, "username")
         )
-    except NoSectionError as e:
+    except NoSectionError:
         print(
             "There is no section {section} in your config file. Please "
             "choose one available section from your config file or "

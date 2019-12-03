@@ -9,7 +9,6 @@ be sorted in different modules.
 All special import should be in try/except loops to avoid import errors.
 """
 
-import logging
 import pandas as pd
 
 de_en = {
@@ -28,7 +27,9 @@ de_en = {
     'Pumpspeicher': 'pumped_storage',
 }
 
-translator = lambda x: de_en[x]
+
+def translator(x):
+    return de_en[x]
 
 
 def get_all_power_plants(conn, geometry):

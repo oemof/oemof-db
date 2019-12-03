@@ -39,7 +39,7 @@ setup(
     author='oemof developer group',
     author_email='oemof@rl-institut.de',
     url='https://github.com/oemof/oemof.db',
-    packages=find_packages('src'),
+    packages=['oemof'] + ['oemof.' + p for p in find_packages('src/oemof')],
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
     include_package_data=True,

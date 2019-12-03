@@ -10,7 +10,7 @@ Overview
 
 |coveralls| |codecov| |scrutinizer| |codacy| |codeclimate|
 
-.. |docs| image:: https://readthedocs.org/projects/oemof.db/badge/?style=flat
+.. |docs| image:: https://readthedocs.org/projects/oemofdb/badge/?style=flat
     :target: https://readthedocs.org/projects/oemofdb
     :alt: Documentation Status
 
@@ -52,7 +52,7 @@ Overview
 
 .. |commits-since| image:: https://img.shields.io/github/commits-since/oemof/oemof.db/v0.0.6dev.svg
     :alt: Commits since latest release
-    :target: https://github.com/oemof/oemof.db/compare/v0.0.6dev...master
+    :target: https://github.com/oemof/oemof.db/compare/v0.0.5...dev
 
 
 .. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/oemof/oemof.db/master.svg

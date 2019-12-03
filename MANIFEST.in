@@ -7,6 +7,8 @@ include .bumpversion.cfg
 include .coveragerc
 include .cookiecutterrc
 include .editorconfig
+include punch_config.py
+include punch_version.py
 
 include AUTHORS.rst
 include CHANGELOG.rst

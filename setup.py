@@ -34,7 +34,12 @@ setup(
         re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub(
             '', read('README.rst')
         ),
-        re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read('CHANGELOG.rst')),
+        '\n'.join(
+            [
+                re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read(path))
+                for path in glob('docs/whatsnew/*')
+            ]
+        ),
     ),
     author='oemof developer group',
     author_email='oemof@rl-institut.de',

@@ -1,17 +1,19 @@
-========
-Contents
-========
+==================================================
+Welcome to oemof's database related documentation!
+==================================================
+
+Contents:
+=========
 
 .. toctree::
    :maxdepth: 2
+   :glob:
 
-   readme
-   installation
-   usage
-   reference/index
+   getting_started
+   api/*
    contributing
    authors
-   changelog
+   whats_new
 
 Indices and tables
 ==================

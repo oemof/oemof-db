@@ -9,6 +9,9 @@ import sys
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 # sys.path.insert(0, os.path.abspath('..'))
 
+# If your documentation needs a minimal Sphinx version, state it here.
+needs_sphinx = '1.4'  # For `sphinx.ext.imgmath`.
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -16,8 +19,8 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.extlinks',
     'sphinx.ext.ifconfig',
+    'sphinx.ext.imgmath',
     'sphinx.ext.napoleon',
-    'sphinx.ext.pngmath',
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
 ]

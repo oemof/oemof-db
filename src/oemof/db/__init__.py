@@ -1,12 +1,14 @@
 from configparser import NoOptionError as option, NoSectionError
+
 from sqlalchemy import create_engine
-import keyring
-from . import config as cfg
-from oemof.db.tools import db_table2pandas
 import getpass
+import keyring
+
+from . import config as cfg
 
 
 __version__ = '0.0.6dev'
+
 
 def url(section="postGIS", config_file=None):
     """ Retrieve the URL used to connect to the database.

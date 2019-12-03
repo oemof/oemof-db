@@ -79,7 +79,7 @@ See `the documentation`_ for more information!
 Installation
 ++++++++++++
 
-  .. raw:: html
+  ..
 
     ::
 

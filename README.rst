@@ -44,7 +44,7 @@ and you can install it using pip3 with the -e flag.
 
 Keep `virtualenvs`_ in mind!
 
-.. _`keyring package`: https://virtualenv.pypa.io
+.. _virtualenvs: https://virtualenv.pypa.io
 
 Configuration and usage
 +++++++++++++++++++++++

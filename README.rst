@@ -4,18 +4,12 @@ Overview
 
 .. start-badges
 
-.. list-table::
-    :stub-columns: 1
+|version| |commits-since| |supported-versions|
 
-    * - docs
-      - |docs|
-    * - tests
-      - | |travis|
-        | |coveralls| |codecov|
-        | |scrutinizer| |codacy| |codeclimate|
-    * - package
-      - | |version| |wheel| |supported-versions| |supported-implementations|
-        | |commits-since|
+|travis| |wheel| |supported-implementations| |docs|
+
+|coveralls| |codecov| |scrutinizer| |codacy| |codeclimate|
+
 .. |docs| image:: https://readthedocs.org/projects/oemof.db/badge/?style=flat
     :target: https://readthedocs.org/projects/oemofdb
     :alt: Documentation Status

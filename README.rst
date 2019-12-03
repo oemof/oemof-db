@@ -14,7 +14,7 @@ Overview
     :target: https://readthedocs.org/projects/oemofdb
     :alt: Documentation Status
 
-.. |travis| image:: https://api.travis-ci.org/oemof/oemof.db.svg?branch=master
+.. |travis| image:: https://api.travis-ci.org/oemof/oemof.db.svg?branch=dev
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/oemof/oemof.db
 

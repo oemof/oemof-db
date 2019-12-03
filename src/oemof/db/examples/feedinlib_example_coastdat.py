@@ -1,23 +1,23 @@
 #!/usr/bin/python3
 # -*- coding: utf-8
 
+import logging
+import warnings
+
+from shapely import geometry as geopy
+
+import feedinlib.models as models
+import feedinlib.powerplants as plants
+
+from oemof.db import coastdat
+import oemof.db as db
+
 try:
     from matplotlib import pyplot as plt
 except ImportError:
     plt = None
 
-import logging
-from shapely import geometry as geopy
-
-import oemof.db as db
-from oemof.db import coastdat
-
-import feedinlib.powerplants as plants
-import feedinlib.models as models
-
 # Feel free to remove or change these lines
-import warnings
-
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 logging.getLogger().setLevel(logging.INFO)
 

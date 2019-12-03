@@ -1,10 +1,9 @@
-
-import pandas
-from sqlalchemy import (
-    Column, Integer, String, ARRAY, ForeignKey)
-from sqlalchemy.orm import relationship
+from sqlalchemy import ARRAY, Column, ForeignKey, Integer, String
 from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+import pandas
+
 from oemof.outputlib.processing import convert_keys_to_strings
 
 """

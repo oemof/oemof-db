@@ -1,14 +1,17 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import logging
-import pandas as pd
-import numpy as np
-from pytz import timezone
 from datetime import datetime
-import feedinlib.weather as weather
-from . import tools
+import logging
+
+from pytz import timezone
 from shapely.wkt import loads as wkt_loads
+import numpy as np
+import pandas as pd
+
+import feedinlib.weather as weather
+
+from . import tools
 
 
 def get_weather(conn, geometry, year):

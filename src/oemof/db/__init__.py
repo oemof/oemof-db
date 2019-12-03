@@ -1,7 +1,8 @@
-from configparser import NoOptionError as option, NoSectionError
+from configparser import NoOptionError as option
+from configparser import NoSectionError
+import getpass
 
 from sqlalchemy import create_engine
-import getpass
 import keyring
 
 from . import config as cfg

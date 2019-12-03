@@ -1,0 +1,34 @@
+v0.0.6 (2019-12-03)
++++++++++++++++++++
+
+Testing
+#######
+
+  * Testing is now done via :code:`pytest`_ instead of :code:`nose`.
+
+.. _pytest: https://pypi.org/project/pytest/
+
+
+Bug fixes
+#########
+
+  * This release should finally get rid of `issue #28`_.
+
+.. _issue #28: https://github.com/oemof/oemof.db/issues/28
+
+
+Other changes
+#############
+
+  * Switched to a `src` based repository layout. This is done via a
+    special `packaging template`_ helping with a lot of stuff. Most
+    importantly it helps with correct test isolation so that `issue
+    #28`_ can properly be tested against.
+
+.. _packaging template: https://github.com/ionelmc/cookiecutter-pylibrary
+
+
+Contributors
+############
+
+  * Stephan Günther

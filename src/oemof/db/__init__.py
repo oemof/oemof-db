@@ -1,12 +1,15 @@
-from configparser import NoOptionError as option, NoSectionError
-from sqlalchemy import create_engine
-import keyring
-from . import config as cfg
-from oemof.db.tools import db_table2pandas
+from configparser import NoOptionError as option
+from configparser import NoSectionError
 import getpass
 
+from sqlalchemy import create_engine
+import keyring
 
-__version__ = '0.0.6dev'
+from . import config as cfg
+
+
+__version__ = '0.0.6'
+
 
 def url(section="postGIS", config_file=None):
     """ Retrieve the URL used to connect to the database.
@@ -40,37 +43,43 @@ def url(section="postGIS", config_file=None):
     cfg.load_config(config_file)
 
     try:
-        pw = keyring.get_password(cfg.get(section, "database"),
-                                  cfg.get(section, "username"))
-    except NoSectionError as e:
-        print("There is no section {section} in your config file. Please "
-              "choose one available section from your config file or "
-              "specify a new one!".format(
-            section=section))
+        pw = keyring.get_password(
+            cfg.get(section, "database"), cfg.get(section, "username")
+        )
+    except NoSectionError:
+        print(
+            "There is no section {section} in your config file. Please "
+            "choose one available section from your config file or "
+            "specify a new one!".format(section=section)
+        )
         exit(-1)
-
 
     if pw is None:
         try:
             pw = cfg.get(section, "pw")
         except option:
-            pw = getpass.getpass(prompt="No password available in your "\
-                                        "keyring for database {database}. "
-                                        "\n\nEnter your password to " \
-                                        "store it in "
-                                        "keyring:".format(database=section))
+            pw = getpass.getpass(
+                prompt="No password available in your "
+                "keyring for database {database}. "
+                "\n\nEnter your password to "
+                "store it in "
+                "keyring:".format(database=section)
+            )
             keyring.set_password(section, cfg.get(section, "username"), pw)
         except NoSectionError:
-            print("Unable to find the 'postGIS' section in oemof's config." +
-                  "\nExiting.")
+            print(
+                "Unable to find the 'postGIS' section in oemof's config."
+                + "\nExiting."
+            )
             exit(-1)
 
     return "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}".format(
-            user=cfg.get(section, "username"),
-            passwd=pw,
-            host=cfg.get(section, "host"),
-            db=cfg.get(section, "database"),
-            port=int(cfg.get(section, "port")))
+        user=cfg.get(section, "username"),
+        passwd=pw,
+        host=cfg.get(section, "host"),
+        db=cfg.get(section, "database"),
+        port=int(cfg.get(section, "port")),
+    )
 
 
 def engine(section="postGIS", config_file=None):

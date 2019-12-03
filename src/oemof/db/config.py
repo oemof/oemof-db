@@ -29,14 +29,10 @@ Option2 = value2 \n
 
 
 """
-import os
+import configparser as cp
 import logging
+import os
 
-try:
-    import configparser as cp
-except:
-    # to be compatible with Python2.7
-    import ConfigParser as cp
 
 FILENAME = 'config.ini'
 FILE = os.path.join(os.path.expanduser("~"), '.oemof', FILENAME)
@@ -103,7 +99,10 @@ def file_not_found_message(file_not_found):
 
         For further advice, see in the docs (https://oemofdb.readthedocs.io)
         how to format the config.
-        """.format(file=file_not_found))
+        """.format(
+            file=file_not_found
+        )
+    )
 
 
 def main():
@@ -121,7 +120,7 @@ def init(FILE):
         cfg.read(FILE)
         global _loaded
         _loaded = True
-    except:
+    except Exception:
         file_not_found_message(FILE)
 
 
@@ -147,10 +146,10 @@ def get(section, key):
     except Exception:
         try:
             return cfg.getint(section, key)
-        except:
+        except Exception:
             try:
                 return cfg.getboolean(section, key)
-            except:
+            except Exception:
                 return cfg.get(section, key)
 
 
@@ -177,6 +176,7 @@ def set(section, key, value):
 
     with open(FILE, 'w') as configfile:
         cfg.write(configfile)
+
 
 if __name__ == "__main__":
     main()

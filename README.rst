@@ -1,4 +1,72 @@
-An oemof extension to use the oemof related postgis database.
+========
+Overview
+========
+
+.. start-badges
+
+|version| |commits-since| |supported-versions| |license|
+
+|travis| |wheel| |supported-implementations| |docs|
+
+|coveralls| |codecov| |scrutinizer| |codacy| |codeclimate|
+
+.. |docs| image:: https://readthedocs.org/projects/oemofdb/badge/?style=flat
+    :target: https://readthedocs.org/projects/oemofdb
+    :alt: Documentation Status
+
+.. |travis| image:: https://api.travis-ci.org/oemof/oemof.db.svg?branch=dev
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/oemof/oemof.db
+
+.. |coveralls| image:: https://coveralls.io/repos/oemof/oemof.db/badge.svg?branch=master&service=github
+    :alt: Coverage Status
+    :target: https://coveralls.io/r/oemof/oemof.db
+
+.. |codecov| image:: https://codecov.io/github/oemof/oemof.db/coverage.svg?branch=master
+    :alt: Coverage Status
+    :target: https://codecov.io/github/oemof/oemof.db
+
+.. |codacy| image:: https://img.shields.io/codacy/grade/[Get ID from https://app.codacy.com/app/oemof/oemof.db/settings].svg
+    :target: https://www.codacy.com/app/oemof/oemof.db
+    :alt: Codacy Code Quality Status
+
+.. |codeclimate| image:: https://codeclimate.com/github/oemof/oemof.db/badges/gpa.svg
+   :target: https://codeclimate.com/github/oemof/oemof.db
+   :alt: CodeClimate Quality Status
+
+.. |version| image:: https://img.shields.io/pypi/v/oemof.db.svg
+    :alt: PyPI Package latest release
+    :target: https://pypi.org/project/oemof.db
+
+.. |wheel| image:: https://img.shields.io/pypi/wheel/oemof.db.svg
+    :alt: PyPI Wheel
+    :target: https://pypi.org/project/oemof.db
+
+.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/oemof.db.svg
+    :alt: Supported versions
+    :target: https://pypi.org/project/oemof.db
+
+.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/oemof.db.svg
+    :alt: Supported implementations
+    :target: https://pypi.org/project/oemof.db
+
+.. |commits-since| image:: https://img.shields.io/badge/dynamic/json.svg?label=%2B&url=https%3A%2F%2Fapi.github.com%2Frepos%2Foemof%2Foemof.db%2Fcompare%2Fv0.0.6...dev&query=%24.total_commits&colorB=blue
+    :alt: Commits since latest release
+    :target: https://github.com/oemof/oemof.db/compare/v0.0.6...dev
+
+
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/oemof/oemof.db/master.svg
+    :alt: Scrutinizer Status
+    :target: https://scrutinizer-ci.com/g/oemof/oemof.db/
+
+
+.. |license| image:: https://img.shields.io/pypi/l/oemof.db.svg?colorB=blue
+    :alt: PyPI - License
+    :target: https://github.com/oemof/oemof.db/blob/master/LICENSE
+
+.. end-badges
+
+Open Energy Modelling Framework - An extension for all database related things
 
 See `the documentation`_ for more information!
 
@@ -9,11 +77,24 @@ See `the documentation`_ for more information!
 Installation
 ++++++++++++
 
-Use pypi to install the latest oemof version.
+  ..
 
-.. code:: bash
+    ::
 
-  pip3 install oemof.db
+        pip install oemof.db
+
+    You can also install the in-development version with::
+
+        pip install https://github.com/oemof/oemof.db/archive/master.zip
+
+Unfortunately installing the PyPi package doesn't work until #28 is fixed.
+Instead, you have to install via:
+
+  .. code:: bash
+
+    pip install -e git://github.com/oemof/oemof.db.git@master#egg=oemof.db
+
+Note that you have to have `git` installed for this to work.
 
 If you want to have the developer version clone the repository by
 
@@ -21,7 +102,7 @@ If you want to have the developer version clone the repository by
 
     git clone git@github.com:oemof/oemof.db.git
 
-and can install it using pip3 with the -e flag.
+and you can install it using pip3 with the -e flag.
 
   .. code:: bash
 
@@ -31,7 +112,7 @@ and can install it using pip3 with the -e flag.
 
 Keep `virtualenvs`_ in mind!
 
-.. _`keyring package`: https://virtualenv.pypa.io
+.. _virtualenvs: https://virtualenv.pypa.io
 
 Configuration and usage
 +++++++++++++++++++++++
@@ -94,3 +175,28 @@ where ``"database"`` and ``"username"`` have the same values as the
 corresponding options in ``config.ini``.
 
 .. _`keyring package`: https://pypi.python.org/pypi/keyring
+
+
+Development
++++++++++++
+
+To run the all tests run::
+
+    tox
+
+Note, to combine the coverage data from all the tox environments run:
+
+.. list-table::
+    :widths: 10 90
+    :stub-columns: 1
+
+    - - Windows
+      - ::
+
+            set PYTEST_ADDOPTS=--cov-append
+            tox
+
+    - - Other
+      - ::
+
+            PYTEST_ADDOPTS=--cov-append tox

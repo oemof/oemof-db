@@ -1,22 +1,23 @@
 #!/usr/bin/python3
 # -*- coding: utf-8
 
+import logging
+import warnings
+
+from shapely import geometry as geopy
+
+import feedinlib.models as models
+import feedinlib.powerplants as plants
+
+from oemof.db import coastdat
+import oemof.db as db
+
 try:
     from matplotlib import pyplot as plt
 except ImportError:
     plt = None
 
-import logging
-from shapely import geometry as geopy
-
-import oemof.db as db
-from oemof.db import coastdat
-
-import feedinlib.powerplants as plants
-import feedinlib.models as models
-
 # Feel free to remove or change these lines
-import warnings
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 logging.getLogger().setLevel(logging.INFO)
 
@@ -25,14 +26,16 @@ required_parameter_wind = {
     'h_hub': 'height of the hub in meters',
     'd_rotor': 'diameter of the rotor in meters',
     'wind_conv_type': 'wind converter according to the list in the csv file.',
-    'data_height': 'dictionary containing the heights of the data model'}
+    'data_height': 'dictionary containing the heights of the data model',
+}
 
 # Specification of the pv model
 required_parameter_pv = {
     'azimuth': 'Azimuth angle of the pv module',
     'tilt': 'Tilt angle of the pv module',
     'module_name': 'According to the sandia module library.',
-    'albedo': 'Albedo value'}
+    'albedo': 'Albedo value',
+}
 
 # Specification of the weather data set CoastDat2
 coastDat2 = {
@@ -41,46 +44,48 @@ coastDat2 = {
     'pressure': 0,
     'temp_air': 2,
     'v_wind': 10,
-    'Z0': 0}
+    'Z0': 0,
+}
 
 # Specification of the pv module
 advent210 = {
     'module_name': 'Advent_Solar_Ventura_210___2008_',
     'azimuth': 180,
     'tilt': 30,
-    'albedo': 0.2}
+    'albedo': 0.2,
+}
 
 # Specification of the pv module
 yingli210 = {
     'module_name': 'Yingli_YL210__2008__E__',
     'azimuth': 180,
     'tilt': 30,
-    'albedo': 0.2}
+    'albedo': 0.2,
+}
 
-loc_berlin = {
-    'tz': 'Europe/Berlin',
-    'latitude': 52.5,
-    'longitude': 13.5
-    }
+loc_berlin = {'tz': 'Europe/Berlin', 'latitude': 52.5, 'longitude': 13.5}
 
 # Specifications of the wind turbines
 enerconE126 = {
     'h_hub': 135,
     'd_rotor': 127,
     'wind_conv_type': 'ENERCON E 126 7500',
-    'data_height': coastDat2}
+    'data_height': coastDat2,
+}
 
 vestasV90 = {
     'h_hub': 105,
     'd_rotor': 90,
     'wind_conv_type': 'VESTAS V 90 3000',
-    'data_height': coastDat2}
+    'data_height': coastDat2,
+}
 
 year = 2010
 
 conn = db.connection()
 my_weather_single = coastdat.get_weather(
-    conn, geopy.Point(loc_berlin['longitude'], loc_berlin['latitude']), year)
+    conn, geopy.Point(loc_berlin['longitude'], loc_berlin['latitude']), year
+)
 
 geo = geopy.Polygon([(12.2, 52.2), (12.2, 51.6), (13.2, 51.6), (13.2, 52.2)])
 multi_weather = coastdat.get_weather(conn, geo, year)
@@ -97,7 +102,8 @@ V90_power_plant = plants.WindPowerPlant(**vestasV90)
 # If no multiplier is set, the time series will be for one turbine.
 E126_feedin = E126_power_plant.feedin(weather=my_weather, number=2)
 V90_feedin = V90_power_plant.feedin(
-    weather=my_weather, installed_capacity=(15 * 10 ** 6))
+    weather=my_weather, installed_capacity=(15 * 10 ** 6)
+)
 
 E126_feedin.name = 'E126'
 V90_feedin.name = 'V90'
@@ -135,10 +141,12 @@ else:
 w_model = models.SimpleWindTurbine()
 w_model.get_wind_pp_types()
 cp_values = models.SimpleWindTurbine().fetch_cp_values(
-    wind_conv_type='ENERCON E 126 7500')
+    wind_conv_type='ENERCON E 126 7500'
+)
 if plt:
-    plt.plot(cp_values.loc[0, :][2:55].index,
-             cp_values.loc[0, :][2:55].values, '*')
+    plt.plot(
+        cp_values.loc[0, :][2:55].index, cp_values.loc[0, :][2:55].values, '*'
+    )
     plt.show()
 else:
     print(cp_values.loc[0, :][2:55].values)

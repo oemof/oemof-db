@@ -9,7 +9,6 @@ be sorted in different modules.
 All special import should be in try/except loops to avoid import errors.
 """
 
-import logging
 import pandas as pd
 
 de_en = {
@@ -25,15 +24,19 @@ de_en = {
     'Mineralölprodukte': 'mineral_oil',
     'Abfall': 'waste',
     'Sonstige Energieträger\n(nicht erneuerbar) ': 'waste',
-    'Pumpspeicher': 'pumped_storage'}
+    'Pumpspeicher': 'pumped_storage',
+}
 
-translator = lambda x: de_en[x]
+
+def translator(x):
+    return de_en[x]
 
 
 def get_all_power_plants(conn, geometry):
-    return (pd.concat([get_bnetza_pps(conn, geometry),
-                       get_energymap_pps(conn, geometry)],
-                      ignore_index=True))
+    return pd.concat(
+        [get_bnetza_pps(conn, geometry), get_energymap_pps(conn, geometry)],
+        ignore_index=True,
+    )
 
 
 def get_energymap_pps(conn, geometry1, geometry2=None, tsum=True):
@@ -42,15 +45,20 @@ def get_energymap_pps(conn, geometry1, geometry2=None, tsum=True):
         SELECT anlagentyp, anuntertyp, p_nenn_kwp
         FROM oemof_test.energy_map as ee
         WHERE st_contains(ST_GeomFromText('{wkt}',4326), ee.geom)
-        """.format(wkt=geometry1.wkt)
+        """.format(
+        wkt=geometry1.wkt
+    )
 
     if geometry2 is None:
         sql += ';'
     else:
         sql += '''AND st_contains(ST_GeomFromText('{wkt}',4326),
-            ee.geom);'''.format(wkt=geometry2.wkt)
+            ee.geom);'''.format(
+            wkt=geometry2.wkt
+        )
     df_full = pd.DataFrame(
-        conn.execute(sql).fetchall(), columns=['type', 'subtype', 'cap'])
+        conn.execute(sql).fetchall(), columns=['type', 'subtype', 'cap']
+    )
     df = pd.DataFrame(columns=['type', 'cap'])
     if tsum:
         typelist = df_full.type.unique()
@@ -70,8 +78,11 @@ def get_bnetza_pps(conn, geometry):
         FROM oemof_test.geo_power_plant_bnetza_2014 as pp
         WHERE st_contains(
         ST_GeomFromText('{wkt}',4326), ST_Transform(pp.geom, 4326))
-        """.format(wkt=geometry.wkt)
+        """.format(
+        wkt=geometry.wkt
+    )
     df = pd.DataFrame(
-        conn.execute(sql).fetchall(), columns=['type', 'subtype', 'cap'])
+        conn.execute(sql).fetchall(), columns=['type', 'subtype', 'cap']
+    )
     df['type'] = df['type'].apply(translator)
     return df

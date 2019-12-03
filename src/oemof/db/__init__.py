@@ -8,7 +8,7 @@ import keyring
 from . import config as cfg
 
 
-__version__ = '0.0.6dev'
+__version__ = '0.0.6'
 
 
 def url(section="postGIS", config_file=None):

@@ -34,7 +34,7 @@ project = 'oemof.db'
 year = '2019'
 author = 'oemof developer group'
 copyright = '2015-{0}, {1}'.format(year, author)
-version = release = '0.0.6dev'
+version = release = '0.0.6'
 
 pygments_style = 'sphinx'
 extlinks = {

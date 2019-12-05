@@ -26,7 +26,7 @@ Overview
     :alt: Coverage Status
     :target: https://codecov.io/github/oemof/oemof.db
 
-.. |codacy| image:: https://img.shields.io/codacy/grade/[Get ID from https://app.codacy.com/app/oemof/oemof.db/settings].svg
+.. |codacy| image:: https://img.shields.io/codacy/grade/7088c02f36304a21b61995dcf6f0.svg
     :target: https://www.codacy.com/app/oemof/oemof.db
     :alt: Codacy Code Quality Status
 
@@ -55,7 +55,7 @@ Overview
     :target: https://github.com/oemof/oemof.db/compare/v0.0.6...dev
 
 
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/oemof/oemof.db/master.svg
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/oemof/oemof.db/dev.svg
     :alt: Scrutinizer Status
     :target: https://scrutinizer-ci.com/g/oemof/oemof.db/
 

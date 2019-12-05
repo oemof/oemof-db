@@ -26,7 +26,7 @@ Overview
     :alt: Coverage Status
     :target: https://codecov.io/github/oemof/oemof.db
 
-.. |codacy| image:: https://img.shields.io/codacy/grade/7088c02f36304a21b61995dcf6f0.svg
+.. |codacy| image:: https://img.shields.io/codacy/grade/7088c02f36304a21b61995dcf6f071c7.svg
     :target: https://www.codacy.com/app/oemof/oemof.db
     :alt: Codacy Code Quality Status
 

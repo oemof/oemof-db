@@ -44,14 +44,14 @@ Base = declarative_base()
 
 
 class OemofInputResult(Base):
-    __tablename__ = 'stemp_oemof_input_result'
+    __tablename__ = 'oemof_input_result'
 
     input_result_id = Column(
         Integer,
         primary_key=True
     )
-    input_id = Column(Integer, ForeignKey('stemp_oemof_data.data_id'))
-    result_id = Column(Integer, ForeignKey('stemp_oemof_data.data_id'))
+    input_id = Column(Integer, ForeignKey('oemof_data.data_id'))
+    result_id = Column(Integer, ForeignKey('oemof_data.data_id'))
     input = relationship(
         "OemofData",
         backref="input",
@@ -67,7 +67,7 @@ class OemofInputResult(Base):
 
 
 class OemofData(Base):
-    __tablename__ = 'stemp_oemof_data'
+    __tablename__ = 'oemof_data'
 
     data_id = Column(
         Integer,
@@ -78,14 +78,14 @@ class OemofData(Base):
 
 
 class OemofScalar(Base):
-    __tablename__ = 'stemp_oemof_scalar'
+    __tablename__ = 'oemof_scalar'
 
     scalar_id = Column(
         Integer,
         primary_key=True
     )
     data_id = Column(
-        Integer, ForeignKey('stemp_oemof_data.data_id'))
+        Integer, ForeignKey('oemof_data.data_id'))
     from_node = Column(
         String
     )
@@ -104,14 +104,14 @@ class OemofScalar(Base):
 
 
 class OemofSequence(Base):
-    __tablename__ = 'stemp_oemof_sequence'
+    __tablename__ = 'oemof_sequence'
 
     sequence_id = Column(
         Integer,
         primary_key=True
     )
     data_id = Column(
-        Integer, ForeignKey('stemp_oemof_data.data_id'))
+        Integer, ForeignKey('oemof_data.data_id'))
     from_node = Column(
         String
     )

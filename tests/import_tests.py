@@ -1,11 +1,11 @@
 from nose.tools import ok_
 
 import oemof
-import oemof.db as oemofdb
+import oemof.db.connect as oemofdb
 
 
 def test_that_oemof_is_importable():
-    ok_(oemof.__version__)
+    ok_(oemof.db.__version__)
 
 
 def test_oemofdb_imports():

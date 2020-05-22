@@ -1,11 +1,3 @@
-from sqlalchemy import ARRAY, Column, ForeignKey, Integer, String
-from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-import pandas
-
-from oemof.outputlib.processing import convert_keys_to_strings
-
 """
 Module to store and restore input- and result-data from oemof into database.
 Works with oemof version 2.0
@@ -19,11 +11,11 @@ Examples
 --------
 The following code will setup your sqlalchemy session and
 create all needed tables in database:
->>> from sqlalchemy import orm
+>>> from sqlalchemy import orm, create_engine
 >>> import sqlahelper
 >>> from oemof.db import results
 
->>> engine = sqlalchemy.create_engine(db_url)
+>>> engine = create_engine(db_url)
 >>> sqlahelper.add_engine(engine)
 >>> SqlAlchemySession = orm.sessionmaker(bind=engine)
 >>> results.Base.metadata.bind = engine
@@ -39,6 +31,14 @@ The following code restores your data from DB:
 >>> input_dict, result_dict = results.restore_results(sa_session, result_id)
 >>> sa_session.close()
 """
+
+from sqlalchemy import ARRAY, Column, ForeignKey, Integer, String
+from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+import pandas
+
+from oemof.solph.processing import convert_keys_to_strings
 
 Base = declarative_base()
 

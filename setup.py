@@ -18,6 +18,19 @@ def read(*names, **kwargs):
         return fh.read()
 
 
+long_description = '%s\n%s' % (
+        re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub(
+            '', read('README.rst')
+        ),
+        '\n'.join(
+            [
+                re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read(path))
+                for path in glob('docs/whatsnew/*')
+            ]
+        ),
+    )
+
+
 setup(
     name='oemof.db',
     # Unfortunately we can't use a `__version__` attribute on `oemof.db` as
@@ -29,18 +42,7 @@ setup(
         'Open Energy Modelling Framework'
         ' - An extension for all database related things'
     ),
-    long_description='%s\n%s'
-    % (
-        re.compile('^.. start-badges.*^.. end-badges', re.M | re.S).sub(
-            '', read('README.rst')
-        ),
-        '\n'.join(
-            [
-                re.sub(':[a-z]+:`~?(.*?)`', r'``\1``', read(path))
-                for path in glob('docs/whatsnew/*')
-            ]
-        ),
-    ),
+    long_description=long_description,
     author='oemof developer group',
     author_email='oemof@rl-institut.de',
     url='https://github.com/oemof/oemof.db',

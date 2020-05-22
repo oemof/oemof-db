@@ -81,9 +81,8 @@ setup(
     ],
     python_requires=">=3.6",
     install_requires=[
-        "oemof.solph"
+        "oemof.solph",
         "sqlalchemy >= 1.0",
-        "SQLAlchemy",
         "keyring",
         "pandas >=0.19.1",
     ],

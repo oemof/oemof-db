@@ -7,29 +7,37 @@ Notes
 By now, table names are static - if you are not satisfied with resulting
 table names, you have to change code yourself!
 
-# Examples
-# --------
-# The following code will setup your sqlalchemy session and
-# create all needed tables in database:
-# >>> from sqlalchemy import orm, create_engine
-# >>> import sqlahelper
-# >>> from oemof.db import results
-#
-# >>> engine = create_engine(db_url)
-# >>> sqlahelper.add_engine(engine)
-# >>> SqlAlchemySession = orm.sessionmaker(bind=engine)
-# >>> results.Base.metadata.bind = engine
-# >>> results.Base.metadata.create_all()
-#
-# The following code stores your data into DB:
-# >>> sa_session = SqlAlchemySession()
-# >>> results.store_results(sa_session, input_dict, result_dict)
-# >>> sa_session.close()
-#
-# The following code restores your data from DB:
-# >>> sa_session = SqlAlchemySession()
-# >>> input_dict, result_dict = results.restore_results(sa_session, result_id)
-# >>> sa_session.close()
+Examples
+--------
+The following code will setup your sqlalchemy session and
+create all needed tables in database:
+
+.. code-block:: python
+
+    from sqlalchemy import orm, create_engine
+    from oemof.db import results
+
+    # You have to add valid SQLAlchemy URL-string first!
+    engine = create_engine(db_url)
+    SqlAlchemySession = orm.sessionmaker(bind=engine)
+    results.Base.metadata.bind = engine
+    results.Base.metadata.create_all()
+
+The following code stores your data into DB:
+
+.. code-block:: python
+
+    sa_session = SqlAlchemySession()
+    results.store_results(sa_session, input_dict, result_dict)
+    sa_session.close()
+
+The following code restores your data from DB:
+
+.. code-block:: python
+
+    sa_session = SqlAlchemySession()
+    input_dict, result_dict = results.restore_results(sa_session, result_id)
+    sa_session.close()
 """
 
 from sqlalchemy import ARRAY, Column, ForeignKey, Integer, String

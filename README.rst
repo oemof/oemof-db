@@ -18,9 +18,10 @@ Overview
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/oemof/oemof.db
 
-.. |coveralls| image:: https://coveralls.io/repos/oemof/oemof.db/badge.svg?branch=master&service=github
-    :alt: Coverage Status
-    :target: https://coveralls.io/r/oemof/oemof.db
+.. |coveralls| image:: https://coveralls.io/repos/github/oemof/oemof-db/badge.svg?branch=dev
+    :alt: coveralls status
+    :target: https://coveralls.io/github/oemof/oemof-db?branch=dev
+
 
 .. |codecov| image:: https://codecov.io/github/oemof/oemof-db/coverage.svg?branch=master
     :alt: Coverage Status

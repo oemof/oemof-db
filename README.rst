@@ -22,18 +22,17 @@ Overview
     :alt: coveralls status
     :target: https://coveralls.io/github/oemof/oemof-db?branch=dev
 
-
 .. |codecov| image:: https://codecov.io/github/oemof/oemof-db/coverage.svg?branch=master
     :alt: Coverage Status
     :target: https://codecov.io/github/oemof/oemof-db
 
 .. |codacy| image:: https://img.shields.io/codacy/grade/7088c02f36304a21b61995dcf6f071c7.svg
-    :target: https://www.codacy.com/app/oemof/oemof.db
+    :target: https://www.codacy.com/app/oemof/oemof-db
     :alt: Codacy Code Quality Status
 
-.. |codeclimate| image:: https://codeclimate.com/github/oemof/oemof.db/badges/gpa.svg
-   :target: https://codeclimate.com/github/oemof/oemof.db
-   :alt: CodeClimate Quality Status
+.. |codeclimate| image:: https://codeclimate.com/github/oemof/oemof-db/badges/gpa.svg
+    :target: https://codeclimate.com/github/oemof/oemof-db
+    :alt: CodeClimate Quality Status
 
 .. |version| image:: https://img.shields.io/pypi/v/oemof.db.svg
     :alt: PyPI Package latest release
@@ -55,11 +54,9 @@ Overview
     :alt: Commits since latest release
     :target: https://github.com/oemof/oemof-db/compare/v0.0.6...dev
 
-
-.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/oemof/oemof.db/dev.svg
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/quality/g/oemof/oemof-db/dev.svg
     :alt: Scrutinizer Status
-    :target: https://scrutinizer-ci.com/g/oemof/oemof.db/
-
+    :target: https://scrutinizer-ci.com/g/oemof/oemof-db/
 
 .. |license| image:: https://img.shields.io/pypi/l/oemof.db.svg?colorB=blue
     :alt: PyPI - License

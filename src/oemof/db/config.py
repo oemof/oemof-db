@@ -121,12 +121,9 @@ def init(FILE):
         Absolute path to config file (incl. filename)
 
     """
-    try:
-        cfg.read(FILE)
-        global _loaded
-        _loaded = True
-    except Exception:
-        file_not_found_message(FILE)
+    cfg.read(FILE)
+    global _loaded
+    _loaded = True
 
 
 def get(section, key):

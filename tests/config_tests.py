@@ -14,6 +14,9 @@ import pytest
 from oemof.db import config
 
 
+TEST_INI = os.path.join(os.path.dirname(__file__), "config_test.ini")
+
+
 def test_main_basic():
     config.main()
 
@@ -37,7 +40,8 @@ def test_init_wrong_filename(caplog):
 
 def test_get_function():
     """Read config file."""
-    config.init("config_test.ini")
+    config.FILE = TEST_INI
+    config.load_config(TEST_INI)
     assert config.get("type_tester", "my_bool") is True
     assert isinstance(config.get("type_tester", "my_int"), int)
     assert config.get("type_tester", "my_int") == 5
@@ -52,7 +56,7 @@ def test_get_function():
 
 
 def test_missing_value():
-    config.FILE = "config_test.ini"
+    config.FILE = TEST_INI
     with pytest.raises(
         NoOptionError, match="No option 'blubb' in section: 'type_tester'"
     ):
@@ -63,7 +67,7 @@ def test_missing_value():
 
 def test_set_temp_value():
 
-    config.FILE = "config_test.ini"
+    config.FILE = TEST_INI
     with pytest.raises(
         NoOptionError, match="No option 'blubb' in section: 'type_tester'"
     ):
@@ -81,9 +85,9 @@ def test_set_temp_without_init():
 
 
 def remove_line():
-    with open("config_test.ini", "r") as f:
+    with open(TEST_INI, "r") as f:
         lines = f.readlines()
-    with open("config_test.ini", "w") as f:
+    with open(TEST_INI, "w") as f:
         for line in lines:
             print(line)
             if "blubb" not in line:

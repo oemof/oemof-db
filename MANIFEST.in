@@ -15,8 +15,6 @@ include CONTRIBUTING.rst
 include LICENSE
 include README.rst
 
-recursive-include tests *.ini
-
 include tox.ini .travis.yml .appveyor.yml
 
 global-exclude *.py[cod] __pycache__/* *.so *.dylib

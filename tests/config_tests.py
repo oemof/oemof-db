@@ -6,9 +6,11 @@ SPDX-License-Identifier: MIT
 """
 
 
-from nose.tools import eq_, ok_, assert_raises_regexp
 from configparser import NoOptionError, NoSectionError
 import os
+
+import pytest
+
 from oemof.db import config
 
 
@@ -51,25 +53,25 @@ def test_get_function():
 
 def test_missing_value():
     config.FILE = "config_test.ini"
-    with assert_raises_regexp(
-        NoOptionError, "No option 'blubb' in section: 'type_tester'"
+    with pytest.raises(
+        NoOptionError, match="No option 'blubb' in section: 'type_tester'"
     ):
         config.get("type_tester", "blubb")
-    with assert_raises_regexp(NoSectionError, "No section: 'typetester'"):
+    with pytest.raises(NoSectionError, match="No section: 'typetester'"):
         config.get("typetester", "my_bool")
 
 
 def test_set_temp_value():
 
     config.FILE = "config_test.ini"
-    with assert_raises_regexp(
-        NoOptionError, "No option 'blubb' in section: 'type_tester'"
+    with pytest.raises(
+        NoOptionError, match="No option 'blubb' in section: 'type_tester'"
     ):
         config.get("type_tester", "blubb")
     config.set("type_tester", "blubb", "None")
-    eq_(config.get("type_tester", "blubb"), None)
+    assert config.get("type_tester", "blubb") is None
     config.set("type_tester", "blubb", "5.5")
-    eq_(config.get("type_tester", "blubb"), 5.5)
+    assert config.get("type_tester", "blubb") == 5.5
     remove_line()
 
 

@@ -22,9 +22,9 @@ Overview
     :alt: Coverage Status
     :target: https://coveralls.io/r/oemof/oemof.db
 
-.. |codecov| image:: https://codecov.io/github/oemof/oemof.db/coverage.svg?branch=master
+.. |codecov| image:: https://codecov.io/github/oemof/oemof-db/coverage.svg?branch=master
     :alt: Coverage Status
-    :target: https://codecov.io/github/oemof/oemof.db
+    :target: https://codecov.io/github/oemof/oemof-db
 
 .. |codacy| image:: https://img.shields.io/codacy/grade/7088c02f36304a21b61995dcf6f071c7.svg
     :target: https://www.codacy.com/app/oemof/oemof.db

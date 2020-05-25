@@ -42,6 +42,7 @@ setup(
         " - An extension for all database related things"
     ),
     long_description=long_description,
+    long_description_content_type="text/x-rst",
     author="oemof developer group",
     author_email="oemof@rl-institut.de",
     url="https://github.com/oemof/oemof.db",

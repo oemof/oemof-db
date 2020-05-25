@@ -121,12 +121,9 @@ def init(FILE):
         Absolute path to config file (incl. filename)
 
     """
-    try:
-        cfg.read(FILE)
-        global _loaded
-        _loaded = True
-    except Exception:
-        file_not_found_message(FILE)
+    cfg.read(FILE)
+    global _loaded
+    _loaded = True
 
 
 def get(section, key):
@@ -151,15 +148,18 @@ def get(section, key):
     if not _loaded:
         init(FILE)
     try:
-        return cfg.getfloat(section, key)
-    except Exception:
+        return cfg.getint(section, key)
+    except ValueError:
         try:
-            return cfg.getint(section, key)
-        except Exception:
+            return cfg.getfloat(section, key)
+        except ValueError:
             try:
                 return cfg.getboolean(section, key)
-            except Exception:
-                return cfg.get(section, key)
+            except ValueError:
+                value = cfg.get(section, key)
+                if value == "None":
+                    value = None
+                return value
 
 
 def set(section, key, value):
@@ -188,7 +188,3 @@ def set(section, key, value):
 
     with open(FILE, 'w') as configfile:
         cfg.write(configfile)
-
-
-if __name__ == "__main__":
-    main()

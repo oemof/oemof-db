@@ -188,7 +188,3 @@ def set(section, key, value):
 
     with open(FILE, 'w') as configfile:
         cfg.write(configfile)
-
-
-if __name__ == "__main__":
-    main()

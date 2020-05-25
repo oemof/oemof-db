@@ -22,7 +22,7 @@ Overview
     :alt: coveralls status
     :target: https://coveralls.io/github/oemof/oemof-db?branch=dev
 
-.. |codecov| image:: https://codecov.io/github/oemof/oemof-db/coverage.svg?branch=master
+.. |codecov| image:: https://codecov.io/github/oemof/oemof-db/coverage.svg?branch=dev
     :alt: Coverage Status
     :target: https://codecov.io/github/oemof/oemof-db
 

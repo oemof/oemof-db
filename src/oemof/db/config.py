@@ -157,6 +157,8 @@ def get(section, key):
                 return cfg.getboolean(section, key)
             except ValueError:
                 value = cfg.get(section, key)
+                if value == "None":
+                    value = None
                 return value
 
 

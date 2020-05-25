@@ -1,12 +1,10 @@
-from configparser import NoOptionError
-from configparser import NoSectionError
+from configparser import NoOptionError, NoSectionError
 import getpass
 
 from sqlalchemy import create_engine
 import keyring
 
 from . import config as cfg
-
 
 __version__ = '0.0.6'
 
@@ -46,7 +44,7 @@ def url(section="postGIS", config_file=None):
         pw = keyring.get_password(
             cfg.get(section, "database"), cfg.get(section, "username")
         )
-    except NoSectionError as e:
+    except NoSectionError:
         msg = (
             "There is no section {section} in your config file. Please "
             "choose one available section from your config file or "

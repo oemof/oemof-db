@@ -148,15 +148,16 @@ def get(section, key):
     if not _loaded:
         init(FILE)
     try:
-        return cfg.getfloat(section, key)
-    except Exception:
+        return cfg.getint(section, key)
+    except ValueError:
         try:
-            return cfg.getint(section, key)
-        except Exception:
+            return cfg.getfloat(section, key)
+        except ValueError:
             try:
                 return cfg.getboolean(section, key)
-            except Exception:
-                return cfg.get(section, key)
+            except ValueError:
+                value = cfg.get(section, key)
+                return value
 
 
 def set(section, key, value):

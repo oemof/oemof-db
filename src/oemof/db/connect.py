@@ -1,4 +1,4 @@
-from configparser import NoOptionError as option
+from configparser import NoOptionError
 from configparser import NoSectionError
 import getpass
 
@@ -46,18 +46,18 @@ def url(section="postGIS", config_file=None):
         pw = keyring.get_password(
             cfg.get(section, "database"), cfg.get(section, "username")
         )
-    except NoSectionError:
-        print(
+    except NoSectionError as e:
+        msg = (
             "There is no section {section} in your config file. Please "
             "choose one available section from your config file or "
             "specify a new one!".format(section=section)
         )
-        exit(-1)
+        raise NoSectionError(msg)
 
     if pw is None:
         try:
             pw = cfg.get(section, "pw")
-        except option:
+        except NoOptionError:
             pw = getpass.getpass(
                 prompt="No password available in your "
                 "keyring for database {database}. "
@@ -66,12 +66,6 @@ def url(section="postGIS", config_file=None):
                 "keyring:".format(database=section)
             )
             keyring.set_password(section, cfg.get(section, "username"), pw)
-        except NoSectionError:
-            print(
-                "Unable to find the 'postGIS' section in oemof's config."
-                + "\nExiting."
-            )
-            exit(-1)
 
     return "postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{db}".format(
         user=cfg.get(section, "username"),

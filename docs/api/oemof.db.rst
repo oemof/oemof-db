@@ -4,14 +4,6 @@ oemof.db package
 Submodules
 ----------
 
-oemof.db.coastdat module
-------------------------
-
-.. automodule:: oemof.db.coastdat
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 oemof.db.config module
 ----------------------
 
@@ -20,34 +12,20 @@ oemof.db.config module
     :undoc-members:
     :show-inheritance:
 
-oemof.db.feedin_pg module
--------------------------
 
-.. automodule:: oemof.db.feedin_pg
+oemof.db.results module
+-----------------------
+
+.. automodule:: oemof.db.results
     :members:
     :undoc-members:
     :show-inheritance:
 
-oemof.db.powerplants module
----------------------------
 
-.. automodule:: oemof.db.powerplants
-    :members:
-    :undoc-members:
-    :show-inheritance:
+oemof.db.connect module
+-----------------------
 
-oemof.db.test_config_changes module
------------------------------------
-
-.. automodule:: oemof.db.test_config_changes
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-oemof.db.tools module
----------------------
-
-.. automodule:: oemof.db.tools
+.. automodule:: oemof.db.connect
     :members:
     :undoc-members:
     :show-inheritance:

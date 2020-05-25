@@ -5,7 +5,7 @@ Bug fixes
 #########
 
  * In order to play well with `oemof`, `oemof/db/__init__.py` has been
-   removed. This should fix `oemof`'s `issue #269 <https://github.com/oemof/oemof/issues/269>`_.
+   removed. This should fix `oemof`'s `issue #269 <https://github.com/oemof/oemof-solph/issues/269>`_.
 
 Contributors
 ############

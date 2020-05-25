@@ -1,11 +1,3 @@
-from sqlalchemy import ARRAY, Column, ForeignKey, Integer, String
-from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-import pandas
-
-from oemof.outputlib.processing import convert_keys_to_strings
-
 """
 Module to store and restore input- and result-data from oemof into database.
 Works with oemof version 2.0
@@ -15,30 +7,38 @@ Notes
 By now, table names are static - if you are not satisfied with resulting
 table names, you have to change code yourself!
 
-Examples
---------
-The following code will setup your sqlalchemy session and
-create all needed tables in database:
->>> from sqlalchemy import orm
->>> import sqlahelper
->>> from oemof.db import results
-
->>> engine = sqlalchemy.create_engine(db_url)
->>> sqlahelper.add_engine(engine)
->>> SqlAlchemySession = orm.sessionmaker(bind=engine)
->>> results.Base.metadata.bind = engine
->>> results.Base.metadata.create_all()
-
-The following code stores your data into DB:
->>> sa_session = SqlAlchemySession()
->>> results.store_results(sa_session, input_dict, result_dict)
->>> sa_session.close()
-
-The following code restores your data from DB:
->>> sa_session = SqlAlchemySession()
->>> input_dict, result_dict = results.restore_results(sa_session, result_id)
->>> sa_session.close()
+# Examples
+# --------
+# The following code will setup your sqlalchemy session and
+# create all needed tables in database:
+# >>> from sqlalchemy import orm, create_engine
+# >>> import sqlahelper
+# >>> from oemof.db import results
+#
+# >>> engine = create_engine(db_url)
+# >>> sqlahelper.add_engine(engine)
+# >>> SqlAlchemySession = orm.sessionmaker(bind=engine)
+# >>> results.Base.metadata.bind = engine
+# >>> results.Base.metadata.create_all()
+#
+# The following code stores your data into DB:
+# >>> sa_session = SqlAlchemySession()
+# >>> results.store_results(sa_session, input_dict, result_dict)
+# >>> sa_session.close()
+#
+# The following code restores your data from DB:
+# >>> sa_session = SqlAlchemySession()
+# >>> input_dict, result_dict = results.restore_results(sa_session, result_id)
+# >>> sa_session.close()
 """
+
+from sqlalchemy import ARRAY, Column, ForeignKey, Integer, String
+from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+import pandas
+
+from oemof.solph.processing import convert_keys_to_strings
 
 Base = declarative_base()
 

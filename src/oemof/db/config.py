@@ -15,7 +15,7 @@ The file has to be of the following structure to be imported correctly.
  \n
 [netCDF] \n
 RootFolder = c://netCDF \n
-FilePrefix = cd2_ \n
+FilePrefix = cd2 \n
  \n
 [mySQL] \n
 host = localhost \n
@@ -81,8 +81,10 @@ def file_not_found_message(file_not_found):
     """
     Show error message incl. help if file not found
 
-    :param filename:
-    :type filename: str
+    Parameters
+    ----------
+    file_not_found : str
+
     """
 
     logging.error(
@@ -113,15 +115,15 @@ def init(FILE):
     """
     Read config file
 
-    :param FILE: Absolute path to config file (incl. filename)
-    :type FILE: str
+    Parameters
+    ----------
+    FILE : str
+        Absolute path to config file (incl. filename)
+
     """
-    try:
-        cfg.read(FILE)
-        global _loaded
-        _loaded = True
-    except Exception:
-        file_not_found_message(FILE)
+    cfg.read(FILE)
+    global _loaded
+    _loaded = True
 
 
 def get(section, key):
@@ -129,28 +131,35 @@ def get(section, key):
     returns the value of a given key of a given section of the main
     config file.
 
-    :param section: the section.
-    :type section: str.
-    :param key: the key.
-    :type key: str.
+    Parameters
+    ----------
+    section : str
+        the section.
+    key: str
+        the key.
 
-    :returns: the value which will be casted to float, int or boolean.
-    if no cast is successfull, the raw string will be returned.
+    Returns
+    -------
+    The value which will be casted to float, int or boolean. If no cast
+        is successful, the raw string will be returned.
 
     """
     # FILE = 'config_misc'
     if not _loaded:
         init(FILE)
     try:
-        return cfg.getfloat(section, key)
-    except Exception:
+        return cfg.getint(section, key)
+    except ValueError:
         try:
-            return cfg.getint(section, key)
-        except Exception:
+            return cfg.getfloat(section, key)
+        except ValueError:
             try:
                 return cfg.getboolean(section, key)
-            except Exception:
-                return cfg.get(section, key)
+            except ValueError:
+                value = cfg.get(section, key)
+                if value == "None":
+                    value = None
+                return value
 
 
 def set(section, key, value):
@@ -158,16 +167,19 @@ def set(section, key, value):
     sets a value to a [section] key - pair.
     if the section doesn't exist yet, it will be created.
 
-    :param section: the section.
-    :type section: str.
-    :param key: the key.
-    :type key: str.
-    :param value: the value.
-    :type value: float, int, str.
+    Parameters
+    ----------
+    section : str
+        the section.
+    key : str
+        the key.
+    value : str
+        the value#
+
     """
 
     if not _loaded:
-        init()
+        init(FILE)
 
     if not cfg.has_section(section):
         cfg.add_section(section)
@@ -176,7 +188,3 @@ def set(section, key, value):
 
     with open(FILE, 'w') as configfile:
         cfg.write(configfile)
-
-
-if __name__ == "__main__":
-    main()

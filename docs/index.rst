@@ -10,6 +10,7 @@ Contents:
    :glob:
 
    getting_started
+   readme
    api/*
    contributing
    authors

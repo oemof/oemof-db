@@ -1,2 +1,6 @@
 sphinx>=1.3
 sphinx-rtd-theme
+sqlalchemy~=1.3.17
+pandas~=0.25.3
+oemof.solph
+keyring~=21.2.1

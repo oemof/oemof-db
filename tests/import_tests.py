@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -
+
+"""Tests of the component module.
+
+SPDX-License-Identifier: MIT
+"""
+
 from nose.tools import ok_
 
 import oemof

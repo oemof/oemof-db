@@ -29,10 +29,9 @@ Option2 = value2 \n
 
 """
 
-import os
-import logging
-
 import configparser as cp
+import logging
+import os
 
 FILENAME = 'config.ini'
 FILE = os.path.join(os.path.expanduser("~"), '.oemof', FILENAME)

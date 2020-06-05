@@ -11,7 +11,7 @@ Contents:
 
    getting_started
    readme
-   api/*
+   api/index.rst
    contributing
    authors
    whats_new

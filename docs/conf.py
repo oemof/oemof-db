@@ -7,7 +7,7 @@ import sys
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-# sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('..'))
 
 # If your documentation needs a minimal Sphinx version, state it here.
 needs_sphinx = '1.4'  # For `sphinx.ext.imgmath`.
@@ -24,19 +24,16 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
 ]
-
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['.']
-
 source_suffix = '.rst'
 master_doc = 'index'
 project = 'oemof.db'
-year = '2019'
+year = '2020'
 author = 'oemof developer group'
 copyright = '2015-{0}, {1}'.format(year, author)
 version = release = '0.0.6'
 
-pygments_style = 'sphinx'
+pygments_style = 'trac'
+templates_path = ['.']
 extlinks = {
     'issue': ('https://github.com/oemof/oemof.db/issues/%s', '#'),
     'pr': ('https://github.com/oemof/oemof.db/pull/%s', 'PR #'),
@@ -50,7 +47,9 @@ if not on_rtd:  # only set the theme if we're building docs locally
 html_use_smartypants = True
 html_last_updated_fmt = '%b %d, %Y'
 html_split_index = False
-html_sidebars = {'**': ['searchbox.html', 'globaltoc.html', 'sourcelink.html']}
+html_sidebars = {
+    '**': ['searchbox.html', 'globaltoc.html', 'sourcelink.html'],
+}
 html_short_title = '%s-%s' % (project, version)
 
 # Output file base name for HTML help builder.
